@@ -5,6 +5,7 @@ const fs = require("fs");
 const session = require("express-session");
 const path = require("path");
 const moment = require("moment");
+const requestIp = require("request-ip");
 require("dotenv").config();
 process.env.PORT = 80;
 
@@ -18,6 +19,8 @@ app.use(session({
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+
+app.use(requestIp.mw());
 
 fs.readdir("./events/get/", (err, files) => {
   if(err) console.log(err);
@@ -50,6 +53,8 @@ fs.readdir("./events/post/", (err, files) => {
 });
 
 app.get("/", (req, res) => {
+  //ip logging
+  //console.log(req.clientIp);
   let eventfile = require("./events/get/home.js");
   if(eventfile) eventfile.run(req, res, fs);
 });
@@ -62,8 +67,6 @@ app.get("/ping", (req, res) => {
   let eventfile = require("./events/get/ping.js");
   if(eventfile) eventfile.run(req, res, fs);
 });
-
-
 
 //BOOTSTRAP DIR HOST
 let bootstraps = fs.readdirSync("./bootstrap-5.1.3-dist/css/themes/", { withFileTypes: true });
