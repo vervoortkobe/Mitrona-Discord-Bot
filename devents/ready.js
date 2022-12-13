@@ -29,13 +29,7 @@ module.exports.run = async (client, app) => {
     commandsReady();
     setTimeout(eventsReady, 10);
 
-    client.user.setActivity("test", { type: Discord.ActivityType.Playing });
-
-    // let commands = client.application?.commands;
-    // commands?.create({
-    //   name: "help",
-    //   description: "» Replies with the help command"
-    // });
+    client.user.setActivity(`${process.env.ACTIVITY}`, { type: Discord.ActivityType.Watching });
 
     app.get("/api/", (req, res) => {
       res.json({
