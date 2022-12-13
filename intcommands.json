@@ -31,7 +31,7 @@
   },
   {
     "name": "autorole",
-    "description": "Configure the autorole.",
+    "description": "Configure the autorole",
     "options": [
       {
         "name": "mode",
@@ -44,6 +44,58 @@
         "description": "The role that the autorole has to be set to > @role / roleid",
         "type": 3,
         "required": false
+      }
+    ]
+  },
+  {
+    "name": "citizen",
+    "description": "Give the @Citizen role to a member",
+    "options": [
+      {
+        "name": "member",
+        "description": "The member that the role has to be given to > @member/memberid",
+        "type": 3,
+        "required": true
+      }
+    ]
+  },
+  {
+    "name": "uncitizen",
+    "description": "Remove the @Citizen role from a member",
+    "options": [
+      {
+        "name": "member",
+        "description": "The member that the role has to be removed from > @member/memberid",
+        "type": 3,
+        "required": true
+      }
+    ]
+  },
+  {
+    "name": "upcitizen",
+    "description": "Upcitizen your 2 Class Citizen role to 1 Class Citizen role"
+  },
+  {
+    "name": "giveaway",
+    "description": "Host a giveaway",
+    "options": [
+      {
+        "name": "duration",
+        "description": "How long the giveaway will last > d/h/m",
+        "type": 3,
+        "required": true
+      },
+      {
+        "name": "winners",
+        "description": "The amount of winners > 1 - 10",
+        "type": 3,
+        "required": true
+      },
+      {
+        "name": "prize",
+        "description": "The prize the winner will receive",
+        "type": 3,
+        "required": true
       }
     ]
   }
