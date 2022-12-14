@@ -73,15 +73,41 @@
   },
   {
     "name": "upcitizen",
-    "description": "Upcitizen your 2 Class Citizen role to 1 Class Citizen role"
+    "description": "Upcitizen a member with 2 Class Citizen role by giving the 1 Class Citizen role",
+    "options": [
+      {
+        "name": "member",
+        "description": "The member that has to be upcitizened > @member/memberid",
+        "type": 3,
+        "required": true
+      }
+    ]
+  },
+  {
+    "name": "decitizen",
+    "description": "Decitizen a member with 1 Class Citizen role by removing the 1 Class Citizen role",
+    "options": [
+      {
+        "name": "member",
+        "description": "The member that has to be decitizened > @member/memberid",
+        "type": 3,
+        "required": true
+      }
+    ]
   },
   {
     "name": "giveaway",
     "description": "Host a giveaway",
     "options": [
       {
+        "name": "channel",
+        "description": "The channel the giveaway will be hosted in > #channel/channelid",
+        "type": 3,
+        "required": true
+      },
+      {
         "name": "duration",
-        "description": "How long the giveaway will last > d/h/m",
+        "description": "How long the giveaway will last > d/h/m (only 1 option accepted!)",
         "type": 3,
         "required": true
       },

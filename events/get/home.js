@@ -17,13 +17,17 @@ module.exports.run = async (req, res, fs) => {
         ${home_head}
         <head>
           <meta property="og:image" content="https://${req.hostname}/icons/logo.png">
-          <style> .pagecontent { display: none; padding-top: 16%; padding-bottom: 16%; } </style>
+          <style>
+            .pagecontent { display: none; padding-top: 15%; }
+            .ip { padding-top: 42vh; }
+          </style>
         </head>
         <body>
           <div id="pagecontent" class="pagecontent">
             <center><br>
               Login-exception: Something went wrong in the authentication process!<br><br>
               Only Administrators are allowed to access this page!
+              <br><br><div class="ip">Your public IP-address: ${req.clientIp}</div>
             </center>
           </div>
         </body>
@@ -72,12 +76,16 @@ module.exports.run = async (req, res, fs) => {
           ${home_head}
           <head>
             <meta property="og:image" content="https://${req.hostname}/icons/logo.png">
-            <style> .pagecontent { display: none; padding-top: 16%; padding-bottom: 16%; } </style>
+            <style>
+              .pagecontent { display: none; padding-top: 15%; }
+              .ip { padding-top: 42vh; }
+            </style>
           </head>
           <body>
             <div id="pagecontent" class="pagecontent">
               <center><br>
                 Only Administrators are allowed to access this page!
+                <br><br><div class="ip">Your public IP-address: ${req.clientIp}</div>
               </center>
             </div>
           </body>
@@ -94,7 +102,10 @@ module.exports.run = async (req, res, fs) => {
       ${home_head}
       <head>
         <meta property="og:image" content="https://${req.hostname}/icons/logo.png">
-        <style> .pagecontent { display: none; padding-top: 16%; padding-bottom: 16%; } </style>
+        <style>
+          .pagecontent { display: none; padding-top: 15%; }
+          .ip { padding-top: 42vh; }
+        </style>
       </head>
       <body>
         <div id="pagecontent" class="pagecontent">
@@ -107,6 +118,7 @@ module.exports.run = async (req, res, fs) => {
                 </path>
               </svg> Discord Login</button>
             </a>
+            <br><br><div class="ip">Your public IP-address: ${req.clientIp}</div>
           </center>
         </div>
       </body>

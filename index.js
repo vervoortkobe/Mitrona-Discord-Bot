@@ -257,5 +257,6 @@ fs.readdir("./devents/", (err, files) => {
       if(eventfile) eventfile.run(client, interaction);
     }
   });
- 
+
+client.on("debug", ( e ) => console.log(e));
 client.login(process.env.TOKEN);

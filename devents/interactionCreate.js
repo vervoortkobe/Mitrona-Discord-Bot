@@ -36,24 +36,24 @@ module.exports.run = async (client, interaction) => {
       let announcement = options.get("announcement").value;
       let announceChannel = interaction.guild.channels.cache.find(c => c.id === options.get("channel").value.replace("<#", "").replace(">", ""));
       
-      if(announceChannel) {
-        const announceReplyEmbed = new Discord.EmbedBuilder()
-        .setColor(0x00ff00)
-        .setDescription(`✅ **|** ***A new announcement has been made in ${announceChannel}!***`)
-        interaction.reply({ embeds: [ announceReplyEmbed ], fetchReply: true, ephemeral: true });
-  
-        const announceEmbed = new Discord.EmbedBuilder()
-        .setColor(`${color}`)
-        .setTitle(`${announceTitle}`)
-        .setDescription(`${announcement}`)
-        .setTimestamp()
-        announceChannel.send({ embeds: [ announceEmbed ] });
-      } else {
+      if(!announceChannel) {
         const announceErrorReplyEmbed = new Discord.EmbedBuilder()
         .setColor(0xff0000)
         .setDescription(`❌ **|** ***Error: I couldn't make an announcement in ${announceChannel}, because that #channel doesn't exist!***`)
         return interaction.reply({ embeds: [ announceErrorReplyEmbed ], fetchReply: true, ephemeral: true });
       }
+
+      const announceReplyEmbed = new Discord.EmbedBuilder()
+      .setColor(0x00ff00)
+      .setDescription(`✅ **|** ***A new announcement has been made in ${announceChannel}!***`)
+      interaction.reply({ embeds: [ announceReplyEmbed ], fetchReply: true, ephemeral: true });
+
+      const announceEmbed = new Discord.EmbedBuilder()
+      .setColor(`${color}`)
+      .setTitle(`${announceTitle}`)
+      .setDescription(`${announcement}`)
+      .setTimestamp()
+      announceChannel.send({ embeds: [ announceEmbed ] });
     }
 
 //AUTOROLE
@@ -106,6 +106,12 @@ module.exports.run = async (client, interaction) => {
         return interaction.reply({ embeds: [ autoroleUsageEmbed ], fetchReply: true, ephemeral: true });
       }
 
+      if(!giveaways[interaction.guild.id]) {
+        giveaways[interaction.guild.id] = {
+          channel: process.env.PREFIX
+        }
+      }
+
       if(mode === "add") {
         if(autoroles[interaction.guild.id].includes(rolenameid.id)) {
           const autoroleRemoveErrorReplyEmbed = new Discord.EmbedBuilder()
@@ -113,6 +119,10 @@ module.exports.run = async (client, interaction) => {
           .setTitle(`⚙️ AUTOROLE`)
           .setDescription(`❌ **|** ***Error: I couldn't add ${rolenameid} to the autoroles, because that role is an autorole already!***`)
           return interaction.reply({ embeds: [ autoroleRemoveErrorReplyEmbed ], fetchReply: true, ephemeral: true });
+        }
+
+        if(!autoroles[interaction.guild.id]) {
+          autoroles[interaction.guild.id] = {};
         }
 
         autoroles[interaction.guild.id] = 
@@ -137,6 +147,10 @@ module.exports.run = async (client, interaction) => {
           .setTitle(`⚙️ AUTOROLE`)
           .setDescription(`❌ **|** ***Error: I couldn't remove ${rolenameid} from the autoroles, because that role is not an autorole!***`)
           return interaction.reply({ embeds: [ autoroleRemoveErrorReplyEmbed ], fetchReply: true, ephemeral: true });
+        }
+
+        if(!autoroles[interaction.guild.id]) {
+          autoroles[interaction.guild.id] = {};
         }
 
         autoroles[interaction.guild.id] = 
@@ -229,36 +243,81 @@ module.exports.run = async (client, interaction) => {
 
 //UPCITIZEN
     if(commandName === "upcitizen") {
+      let housingsteward = interaction.guild.roles.cache.find(r => r.id === `${process.env.HOUSINGSTEWARD_ROLE}`);
       let s2classcitizen = interaction.guild.roles.cache.find(r => r.id === `${process.env.S2CLASSCITIZEN_ROLE}`);
       let f1classcitizen = interaction.guild.roles.cache.find(r => r.id === `${process.env.F1CLASSCITIZEN_ROLE}`);
       
-      if(!interaction.member.roles.cache.some(r => r.id === s2classcitizen.id)) {
+      if(!interaction.member.roles.cache.some(r => r.id === housingsteward.id)) {
         const upcitizenErrorReplyEmbed = new Discord.EmbedBuilder()
         .setColor(0xff0000)
-        .setDescription(`❌ **|** ***Error: You don't have the sufficient role (${s2classcitizen}) to use this command!***`)
+        .setDescription(`❌ **|** ***Error: You don't have the sufficient role (${housingsteward}) to use this command!***`)
         return interaction.reply({ embeds: [ upcitizenErrorReplyEmbed ], fetchReply: true, ephemeral: true });
       }
 
-      if(!interaction.member.roles.cache.some(r => r.id === s2classcitizen.id)) {
-        const upcitizenS2ErrorReplyEmbed = new Discord.EmbedBuilder()
+      let member = interaction.guild.members.cache.get(options.get("member").value.replace("<@", "").replace(">", ""));
+
+      if(!member) {
+        const upcitizenMemberErrorReplyEmbed = new Discord.EmbedBuilder()
         .setColor(0xff0000)
-        .setDescription(`❌ **|** ***Error: I couldn't give the ${f1classcitizen} to you, because you don't have the ${s2classcitizen} role!***`)
-        return interaction.reply({ embeds: [ upcitizenS2ErrorReplyEmbed ], fetchReply: true, ephemeral: true });
+        .setDescription(`❌ **|** ***Error: I couldn't upcitizen that member, because that isn't a valid member!***`)
+        return interaction.reply({ embeds: [ upcitizenMemberErrorReplyEmbed ], fetchReply: true, ephemeral: true });
+      }
+      if(!member.roles.cache.some(r => r.id === s2classcitizen.id)) {
+        const upcitizenMemberErrorReplyEmbed = new Discord.EmbedBuilder()
+        .setColor(0xff0000)
+        .setDescription(`❌ **|** ***Error: I couldn't upcitizen that member, because he/she doesn't have the ${f1classcitizen} role!***`)
+        return interaction.reply({ embeds: [ upcitizenMemberErrorReplyEmbed ], fetchReply: true, ephemeral: true });
+      }
+      if(member.roles.cache.some(r => r.id === f1classcitizen.id)) {
+        const upcitizenMemberErrorReplyEmbed = new Discord.EmbedBuilder()
+        .setColor(0xff0000)
+        .setDescription(`❌ **|** ***Error: I couldn't upcitizen that member, because he/she already has the ${f1classcitizen} role!***`)
+        return interaction.reply({ embeds: [ upcitizenMemberErrorReplyEmbed ], fetchReply: true, ephemeral: true });
       }
 
-      if(interaction.member.roles.cache.some(r => r.id === f1classcitizen.id)) {
-        const upcitizenF1ErrorReplyEmbed = new Discord.EmbedBuilder()
-        .setColor(0xff0000)
-        .setDescription(`❌ **|** ***Error: I couldn't give the ${f1classcitizen} to you, because you already have that role!***`)
-        return interaction.reply({ embeds: [ upcitizenF1ErrorReplyEmbed ], fetchReply: true, ephemeral: true });
-      }
-
-      interaction.member.roles.add(f1classcitizen);
+      member.roles.add(f1classcitizen);
 
       const upcitizenEmbed = new Discord.EmbedBuilder()
       .setColor(0x00ff00)
       .setTitle("⚙️ UPCITIZEN")
-      .setDescription(`✅ **|** ***I have upcitizened you by giving the ${f1classcitizen} role!***`)
+      .setDescription(`✅ **|** ***I have upcitizened ${member} by giving the ${f1classcitizen}!***`)
+      interaction.reply({ embeds: [ upcitizenEmbed ], fetchReply: true, ephemeral: true });
+    }
+
+//DECITIZEN
+    if(commandName === "decitizen") {
+      let housingsteward = interaction.guild.roles.cache.find(r => r.id === `${process.env.HOUSINGSTEWARD_ROLE}`);
+      let s2classcitizen = interaction.guild.roles.cache.find(r => r.id === `${process.env.S2CLASSCITIZEN_ROLE}`);
+      let f1classcitizen = interaction.guild.roles.cache.find(r => r.id === `${process.env.F1CLASSCITIZEN_ROLE}`);
+      
+      if(!interaction.member.roles.cache.some(r => r.id === housingsteward.id)) {
+        const decitizenErrorReplyEmbed = new Discord.EmbedBuilder()
+        .setColor(0xff0000)
+        .setDescription(`❌ **|** ***Error: You don't have the sufficient role (${housingsteward}) to use this command!***`)
+        return interaction.reply({ embeds: [ decitizenErrorReplyEmbed ], fetchReply: true, ephemeral: true });
+      }
+
+      let member = interaction.guild.members.cache.get(options.get("member").value.replace("<@", "").replace(">", ""));
+
+      if(!member) {
+        const decitizenMemberErrorReplyEmbed = new Discord.EmbedBuilder()
+        .setColor(0xff0000)
+        .setDescription(`❌ **|** ***Error: I couldn't decitizen that member, because that isn't a valid member!***`)
+        return interaction.reply({ embeds: [ decitizenMemberErrorReplyEmbed ], fetchReply: true, ephemeral: true });
+      }
+      if(!member.roles.cache.some(r => r.id === f1classcitizen.id)) {
+        const decitizenMemberErrorReplyEmbed = new Discord.EmbedBuilder()
+        .setColor(0xff0000)
+        .setDescription(`❌ **|** ***Error: I couldn't decitizen that member, because he/she doesn't have the ${f1classcitizen} role!***`)
+        return interaction.reply({ embeds: [ decitizenMemberErrorReplyEmbed ], fetchReply: true, ephemeral: true });
+      }
+
+      member.roles.remove(f1classcitizen);
+
+      const upcitizenEmbed = new Discord.EmbedBuilder()
+      .setColor(0x00ff00)
+      .setTitle("⚙️ UPCITIZEN")
+      .setDescription(`✅ **|** ***I have upcitizened ${member} by giving the ${f1classcitizen}!***`)
       interaction.reply({ embeds: [ upcitizenEmbed ], fetchReply: true, ephemeral: true });
     }
 
@@ -271,19 +330,27 @@ module.exports.run = async (client, interaction) => {
         return interaction.reply({ embeds: [ giveawayErrorReplyEmbed ], fetchReply: true, ephemeral: true });
       }
 
+      let giveawayChannel = interaction.guild.channels.cache.find(c => c.id === options.get("channel").value.replace("<#", "").replace(">", ""));
       let duration = options.get("duration").value;
       let time;
       let winners = options.get("winners").value;
       let prize = options.get("prize").value;
+      
+      if(!giveawayChannel) {
+        const giveawayErrorReplyEmbed = new Discord.EmbedBuilder()
+        .setColor(0xff0000)
+        .setDescription(`❌ **|** ***Error: I couldn't start a giveaway in ${giveawayChannel}, because that #channel doesn't exist!***`)
+        return interaction.reply({ embeds: [ giveawayErrorReplyEmbed ], fetchReply: true, ephemeral: true });
+      }
 
       if(duration.includes("d")) {
-        time = interaction.createdTimestamp + duration.replace("d", "") * 86400;
+        time = interaction.createdTimestamp + duration.replace("d", "") * 86400 * 1000;
       }
       else if(duration.includes("h")) {
-        time = interaction.createdTimestamp + duration.replace("h", "") * 3600
+        time = interaction.createdTimestamp + duration.replace("h", "") * 3600 * 1000;
       }
       else if(duration.includes("m")) {
-        time = interaction.createdTimestamp + duration.replace("m", "") * 60;
+        time = interaction.createdTimestamp + duration.replace("m", "") * 60 * 1000;
       }
       else {
         const giveawayDurationErrorReplyEmbed = new Discord.EmbedBuilder()
@@ -306,10 +373,25 @@ module.exports.run = async (client, interaction) => {
         return interaction.reply({ embeds: [ giveawayWinnersOutofrangeErrorReplyEmbed ], fetchReply: true, ephemeral: true });
       }
 
+      let giveaways = JSON.parse(fs.readFileSync("./giveaways.json", "utf-8"));
 
+      if(!giveaways[interaction.guild.id]) {
+        giveaways[interaction.guild.id] = [];
+      }
 
+      let gaArray = {
+        channel: giveawayChannel.id,
+        duration: time,
+        winners: winners,
+        prize: prize
+      };
 
+      giveaways[interaction.guild.id] = 
+        giveaways[interaction.guild.id].concat(gaArray);
 
+      fs.writeFile("./giveaways.json", JSON.stringify(giveaways), (err) => {
+        if(err) console.log(err);
+      });
 
     }
 

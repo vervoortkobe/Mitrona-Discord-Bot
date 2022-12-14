@@ -5,14 +5,14 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "rebuild": "npm rebuild",
+    "rebuild": "npm rebuild && node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Tsunami#6271, NoaBrecht#2512",
   "license": "ISC",
   "dependencies": {
+    "@popperjs/core": "^2.11.6",
     "cors": "^2.8.5",
-    "create-react-app": "^1.2.1",
     "discord.js": "^14.7.1",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
