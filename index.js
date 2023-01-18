@@ -1,13 +1,39 @@
 const express = require("express");
 const cors = require("cors");
-const fetch = require("node-fetch");
 const fs = require("fs");
 const session = require("express-session");
 const path = require("path");
-const moment = require("moment");
 const requestIp = require("request-ip");
 require("dotenv").config();
 process.env.PORT = 80;
+
+///////////////////////////////////////////////////////////////////////////////////
+//DISCORD CLIENT INITIALISATION
+const Discord = require("discord.js");
+const client = new Discord.Client({
+  allowedMentions: { 
+    parse: ["users", "roles"], 
+    repliedUser: true 
+  }, 
+  intents: [ 
+    Discord.GatewayIntentBits.Guilds, 
+    Discord.GatewayIntentBits.GuildMembers, 
+    Discord.GatewayIntentBits.GuildPresences, 
+    Discord.GatewayIntentBits.GuildMessages, 
+    Discord.GatewayIntentBits.GuildMessageReactions, 
+    Discord.GatewayIntentBits.MessageContent 
+  ], 
+  partials: [
+    Discord.Partials.User, 
+    Discord.Partials.Channel, 
+    Discord.Partials.GuildMember, 
+    Discord.Partials.Message, 
+    Discord.Partials.Reaction, 
+    Discord.Partials.ThreadMember
+  ] 
+});
+
+///////////////////////////////////////////////////////////////////////////////////
 
 const app = express();
 
@@ -56,7 +82,7 @@ app.get("/", (req, res) => {
   //ip logging
   //console.log(req.clientIp);
   let eventfile = require("./events/get/home.js");
-  if(eventfile) eventfile.run(req, res, fs);
+  if(eventfile) eventfile.run(req, res, fs, client);
 });
 
 app.get("/home", (req, res) => {
@@ -164,34 +190,12 @@ const listener = app.listen(process.env.PORT, () => {
 
 ///////////////////////////////////////////////////////////////////////////////////
 
-const Discord = require("discord.js");
-const client = new Discord.Client({
-  allowedMentions: { 
-    parse: ["users", "roles"], 
-    repliedUser: true 
-  }, 
-  intents: [ 
-    Discord.GatewayIntentBits.Guilds, 
-    Discord.GatewayIntentBits.GuildMembers, 
-    Discord.GatewayIntentBits.GuildPresences, 
-    Discord.GatewayIntentBits.GuildMessages, 
-    Discord.GatewayIntentBits.GuildMessageReactions, 
-    Discord.GatewayIntentBits.MessageContent 
-  ], 
-  partials: [
-    "User", 
-    "Channel", 
-    "GuildMember", 
-    "Message", 
-    "Reaction", 
-    "ThreadMember"
-  ] 
-});
 client.commands = new Discord.Collection();
 client.aliases = new Discord.Collection();
 client.events = new Discord.Collection();
 client.introute = new Discord.Collection();
 
+//DISCORD COMMANDS LOADING
 fs.readdir("./commands/", (err, files) => {
   if(err) console.log(err);
   let jsfile = files.filter(f => f.split(".").pop() === "js");
@@ -203,11 +207,41 @@ fs.readdir("./commands/", (err, files) => {
    
   jsfile.forEach((f, i) => {
     let props = require(`./commands/${f}`);
-    console.log("\x1b[0m", `• ${f} was loaded!`);
+    console.log("\x1b[0m", `• commands/${f} was loaded!`);
     client.commands.set(props.help.name, props);
     props.help.aliases.forEach(alias => {
       client.aliases.set(alias, props.help.name);
     });
+  });
+});
+
+//DISCORD INTCOMMANDS LOADING
+fs.readdir("./devents/intcommands/", (err, files) => {
+  if(err) console.log(err);
+  let jsfile = files.filter(f => f.split(".").pop() === "js");
+  if(jsfile.length <= 0) {
+    console.log("\x1b[31m", "❌  I couldn't find the intcommands folder!");
+    console.log("\x1b[0m", "");
+    return;
+  }
+   
+  jsfile.forEach((f, i) => {
+    console.log("\x1b[0m", `• devents/intcommands/${f} was loaded!`);
+  });
+});
+
+//DISCORD BUTTONS LOADING
+fs.readdir("./devents/buttons/", (err, files) => {
+  if(err) console.log(err);
+  let jsfile = files.filter(f => f.split(".").pop() === "js");
+  if(jsfile.length <= 0) {
+    console.log("\x1b[31m", "❌  I couldn't find the intcommands folder!");
+    console.log("\x1b[0m", "");
+    return;
+  }
+   
+  jsfile.forEach((f, i) => {
+    console.log("\x1b[0m", `• devents/buttons/${f} was loaded!`);
   });
 });
 
@@ -222,7 +256,7 @@ fs.readdir("./devents/", (err, files) => {
   }
   jsfile.forEach((f, i) => {
     let props = require(`./devents/${f}`);
-    console.log("\x1b[0m", `• ${f} was loaded!`);
+    console.log("\x1b[0m", `• devents/${f} was loaded!`);
     client.events.set(props.help.name, props);
   });
 });
@@ -252,11 +286,9 @@ fs.readdir("./devents/", (err, files) => {
 
 //INTERACTION_CREATE
   client.on("interactionCreate", async interaction => {
-    if(interaction.isChatInputCommand()) {
-      let eventfile = client.events.get("interactionCreate");
-      if(eventfile) eventfile.run(client, interaction);
-    }
+    let eventfile = client.events.get("interactionCreate");
+    if(eventfile) eventfile.run(client, interaction);
   });
 
-client.on("debug", ( e ) => console.log(e));
+//client.on("debug", e => console.log(e));
 client.login(process.env.TOKEN);
