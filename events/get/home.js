@@ -25,7 +25,7 @@ module.exports.run = async (req, res, fs) => {
         <body>
           <div id="pagecontent" class="pagecontent">
             <center><br>
-              Login-exception: Something went wrong in the authentication process!<br><br>
+              Login-exception: Something went wrong during the authentication process!<br><br>
               Only Administrators are allowed to access this page!
               <br><br><div class="ip">Your public IP-address: ${req.clientIp}</div>
             </center>
