@@ -4,14 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "rebuild": "npm rebuild && node index.js",
+    "start": "kill 1 && node index.js",
+    "rebuild": "npm rebuild && kill 1 && node index.js",
+    "cache": "npm cache clean --force",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Tsunami#6271, NoaBrecht#2512",
   "license": "ISC",
   "dependencies": {
-    "@popperjs/core": "^2.11.6",
     "cors": "^2.8.5",
     "discord.js": "^14.7.1",
     "dotenv": "^16.0.3",
