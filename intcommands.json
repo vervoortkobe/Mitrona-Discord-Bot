@@ -72,30 +72,6 @@
     ]
   },
   {
-    "name": "upcitizen",
-    "description": "Upcitizen a member with 2 Class Citizen role by giving the 1 Class Citizen role",
-    "options": [
-      {
-        "name": "member",
-        "description": "The member that has to be upcitizened > @member/memberid",
-        "type": 3,
-        "required": true
-      }
-    ]
-  },
-  {
-    "name": "decitizen",
-    "description": "Decitizen a member with 1 Class Citizen role by removing the 1 Class Citizen role",
-    "options": [
-      {
-        "name": "member",
-        "description": "The member that has to be decitizened > @member/memberid",
-        "type": 3,
-        "required": true
-      }
-    ]
-  },
-  {
     "name": "giveaway",
     "description": "Host a giveaway",
     "options": [
@@ -120,6 +96,58 @@
       {
         "name": "prize",
         "description": "The prize the winner will receive",
+        "type": 3,
+        "required": true
+      }
+    ]
+  },
+  {
+    "name": "gcheck",
+    "description": "Check the ongoing and ended giveaways"
+  },
+  {
+    "name": "greroll",
+    "description": "Reroll a specific giveaway, using its messageid",
+    "options": [
+      {
+        "name": "giveaway",
+        "description": "Which giveaway to reroll > messageid",
+        "type": 3,
+        "required": false
+      }
+    ]
+  },
+  {
+    "name": "gend",
+    "description": "End a specific giveaway, using its messageid",
+    "options": [
+      {
+        "name": "giveaway",
+        "description": "Which giveaway to end > messageid",
+        "type": 3,
+        "required": false
+      }
+    ]
+  },
+  {
+    "name": "gcancel",
+    "description": "Cancel a specific giveaway, using its messageid",
+    "options": [
+      {
+        "name": "giveaway",
+        "description": "Which giveaway to cancel > messageid",
+        "type": 3,
+        "required": false
+      }
+    ]
+  },
+  {
+    "name": "clear",
+    "description": "Clear an amount of messages",
+    "options": [
+      {
+        "name": "amount",
+        "description": "The amount of messages to purge > 1 - 99",
         "type": 3,
         "required": true
       }
