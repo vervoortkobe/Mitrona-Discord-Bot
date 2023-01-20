@@ -5,7 +5,7 @@ const session = require("express-session");
 const path = require("path");
 const requestIp = require("request-ip");
 require("dotenv").config();
-process.env.PORT = 80;
+//process.env.PORT = 80;
 
 ///////////////////////////////////////////////////////////////////////////////////
 //DISCORD CLIENT INITIALISATION
