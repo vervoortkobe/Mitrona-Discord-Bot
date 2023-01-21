@@ -2,7 +2,7 @@ const Discord = require("discord.js");
 const fs = require("fs");
 
 module.exports.run = async (client, interaction, commandName, options, fs) => {
-    
+  console.log("test");    
     if(!interaction.member.permissions.has(Discord.PermissionsBitField.Flags.Administrator)) {
       const autoroleErrorReplyEmbed = new Discord.EmbedBuilder()
       .setColor(0xff0000)

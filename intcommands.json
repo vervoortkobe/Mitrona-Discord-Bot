@@ -60,14 +60,58 @@
     ]
   },
   {
-    "name": "uncitizen",
-    "description": "Remove the @Citizen role from a member",
+    "name": "clear",
+    "description": "Clear an amount of messages",
     "options": [
       {
-        "name": "member",
-        "description": "The member that the role has to be removed from > @member/memberid",
+        "name": "amount",
+        "description": "The amount of messages to purge > 1 - 99",
         "type": 3,
         "required": true
+      }
+    ]
+  },
+  {
+    "name": "dashboard",
+    "description": "Get the URL to the dashboard"
+  },
+  {
+    "name": "eval",
+    "description": "Execute evaluated code straight through the bot",
+    "options": [
+      {
+        "name": "code",
+        "description": "The evaluated code that has to be executed",
+        "type": 3,
+        "required": true
+      }
+    ]
+  },
+  {
+    "name": "gcancel",
+    "description": "Cancel a specific giveaway, using its messageid",
+    "options": [
+      {
+        "name": "giveaway",
+        "description": "Which giveaway to cancel > messageid",
+        "type": 3,
+        "required": false
+      }
+    ]
+  },
+  {
+    "name": "gcheck",
+    "description": "Check the ongoing and ended giveaways"
+  },
+  {
+    "name": "gend",
+    "description": "End a specific giveaway, using its messageid",
+    "options": [
+      {
+        "name": "giveaway",
+        "description": "Which giveaway to end > messageid",
+        "type": 3,
+        "required": false
       }
     ]
   },
@@ -102,10 +146,6 @@
     ]
   },
   {
-    "name": "gcheck",
-    "description": "Check the ongoing and ended giveaways"
-  },
-  {
     "name": "greroll",
     "description": "Reroll a specific giveaway, using its messageid",
     "options": [
@@ -118,52 +158,12 @@
     ]
   },
   {
-    "name": "gend",
-    "description": "End a specific giveaway, using its messageid",
+    "name": "uncitizen",
+    "description": "Remove the @Citizen role from a member",
     "options": [
       {
-        "name": "giveaway",
-        "description": "Which giveaway to end > messageid",
-        "type": 3,
-        "required": false
-      }
-    ]
-  },
-  {
-    "name": "gcancel",
-    "description": "Cancel a specific giveaway, using its messageid",
-    "options": [
-      {
-        "name": "giveaway",
-        "description": "Which giveaway to cancel > messageid",
-        "type": 3,
-        "required": false
-      }
-    ]
-  },
-  {
-    "name": "clear",
-    "description": "Clear an amount of messages",
-    "options": [
-      {
-        "name": "amount",
-        "description": "The amount of messages to purge > 1 - 99",
-        "type": 3,
-        "required": true
-      }
-    ]
-  },
-  {
-    "name": "dashboard",
-    "description": "Get the URL to the dashboard"
-  },
-  {
-    "name": "eval",
-    "description": "Execute evaluated code straight through the bot",
-    "options": [
-      {
-        "name": "code",
-        "description": "The evaluated code that has to be executed",
+        "name": "member",
+        "description": "The member that the role has to be removed from > @member/memberid",
         "type": 3,
         "required": true
       }

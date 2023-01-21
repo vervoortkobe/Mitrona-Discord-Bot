@@ -33,33 +33,21 @@ module.exports.run = async (client, interaction) => {
       if(eventfile) eventfile.run(client, interaction, commandName, options, fs);
     }
 
-//UNCITIZEN
-    if(commandName === "uncitizen") {
-      let eventfile = require("./intcommands/uncitizen.js");
+//CLEAR
+    if(commandName === "clear") {
+      let eventfile = require("./intcommands/clear.js");
       if(eventfile) eventfile.run(client, interaction, commandName, options, fs);
     }
 
-//GIVEAWAY
-    if(commandName === "giveaway") {
-      let eventfile = require("./intcommands/giveaway.js");
+//DASHBOARD
+    if(commandName === "dashboard") {
+      let eventfile = require("./intcommands/dashboard.js");
       if(eventfile) eventfile.run(client, interaction, commandName, options, fs);
     }
 
-//GCHECK
-    if(commandName === "gcheck") {
-      let eventfile = require("./intcommands/gcheck.js");
-      if(eventfile) eventfile.run(client, interaction, commandName, options, fs);
-    }
-
-//GREROLL
-    if(commandName === "greroll") {
-      let eventfile = require("./intcommands/greroll.js");
-      if(eventfile) eventfile.run(client, interaction, commandName, options, fs);
-    }
-
-//GEND
-    if(commandName === "gend") {
-      let eventfile = require("./intcommands/gend.js");
+//EVAL
+    if(commandName === "eval") {
+      let eventfile = require("./intcommands/eval.js");
       if(eventfile) eventfile.run(client, interaction, commandName, options, fs);
     }
 
@@ -69,9 +57,33 @@ module.exports.run = async (client, interaction) => {
       if(eventfile) eventfile.run(client, interaction, commandName, options, fs);
     }
 
-//CLEAR
-    if(commandName === "clear") {
-      let eventfile = require("./intcommands/clear.js");
+//GCHECK
+    if(commandName === "gcheck") {
+      let eventfile = require("./intcommands/gcheck.js");
+      if(eventfile) eventfile.run(client, interaction, commandName, options, fs);
+    }
+
+//GEND
+    if(commandName === "gend") {
+      let eventfile = require("./intcommands/gend.js");
+      if(eventfile) eventfile.run(client, interaction, commandName, options, fs);
+    }
+
+//GIVEAWAY
+    if(commandName === "giveaway") {
+      let eventfile = require("./intcommands/giveaway.js");
+      if(eventfile) eventfile.run(client, interaction, commandName, options, fs);
+    }
+
+//GREROLL
+    if(commandName === "greroll") {
+      let eventfile = require("./intcommands/greroll.js");
+      if(eventfile) eventfile.run(client, interaction, commandName, options, fs);
+    }
+
+//UNCITIZEN
+    if(commandName === "uncitizen") {
+      let eventfile = require("./intcommands/uncitizen.js");
       if(eventfile) eventfile.run(client, interaction, commandName, options, fs);
     }
   }
