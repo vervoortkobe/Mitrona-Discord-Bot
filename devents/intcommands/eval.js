@@ -19,7 +19,7 @@ module.exports.run = async (client, interaction, commandName, options, fs) => {
     
     let cmd = options.get("code").value;
       
-    if(cmd.toLowerCase().contains("token") || cmd.toLowerCase().contains("config.") || cmd.toLowerCase().contains("process.env")) {
+    if(cmd.toLowerCase().includes("token") || cmd.toLowerCase().includes("config.") || cmd.toLowerCase().includes("process.env")) {
       const errorEmbed = new Discord.EmbedBuilder()
       .setColor(0xff0000)
       .setDescription(`❌ **|** ***Error: I detected a withheld keyword in the defined evaluated code I had to execute!***`)
