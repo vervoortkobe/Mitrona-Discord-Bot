@@ -1,7 +1,7 @@
 const Discord = require("discord.js");
 const fs = require("fs");
 
-module.exports.run = async (client, interaction, commandName, options, fs) => {
+module.exports.run = async (client, interaction) => {
 
     if(!interaction.member.permissions.has(Discord.PermissionsBitField.Flags.Administrator)) {
       const announcePermsErrorReplyEmbed = new Discord.EmbedBuilder()
@@ -12,24 +12,24 @@ module.exports.run = async (client, interaction, commandName, options, fs) => {
 
     let color;
     let colors = ["red", "orange", "yellow", "green", "blue", "indigo", "violet"];
-    if(colors.includes(options.get("color").value.toLowerCase())) {
-      if(options.get("color").value.toLowerCase() === "red") color = "#ff0000";
-      if(options.get("color").value.toLowerCase() === "orange") color = "#ff7f00";
-      if(options.get("color").value.toLowerCase() === "yellow") color = "#ffff00";
-      if(options.get("color").value.toLowerCase() === "green") color = "#00ff00";
-      if(options.get("color").value.toLowerCase() === "blue") color = "#0000ff";
-      if(options.get("color").value.toLowerCase() === "indigo") color = "#4B0082";
-      if(options.get("color").value.toLowerCase() === "violet") color = "#9400D3";
+    if(colors.includes(interaction.options.get("color").value.toLowerCase())) {
+      if(interaction.options.get("color").value.toLowerCase() === "red") color = "#ff0000";
+      if(interaction.options.get("color").value.toLowerCase() === "orange") color = "#ff7f00";
+      if(interaction.options.get("color").value.toLowerCase() === "yellow") color = "#ffff00";
+      if(interaction.options.get("color").value.toLowerCase() === "green") color = "#00ff00";
+      if(interaction.options.get("color").value.toLowerCase() === "blue") color = "#0000ff";
+      if(interaction.options.get("color").value.toLowerCase() === "indigo") color = "#4B0082";
+      if(interaction.options.get("color").value.toLowerCase() === "violet") color = "#9400D3";
     } else {
       const announceColorErrorReplyEmbed = new Discord.EmbedBuilder()
       .setColor(0xff0000)
-      .setDescription(`❌ **|** ***Error: I couldn't make an announcement with color \`${options.get("color").value}\`, because that color isn't a valid option!***`)
+      .setDescription(`❌ **|** ***Error: I couldn't make an announcement with color \`${interaction.options.get("color").value}\`, because that color isn't a valid option!***`)
       return interaction.reply({ embeds: [ announceColorErrorReplyEmbed ], ephemeral: true });
     }
 
-    let announceTitle = options.get("title").value;
-    let announcement = options.get("announcement").value;
-    let announceChannel = interaction.guild.channels.cache.find(c => c.id === options.get("channel").value.replace("<#", "").replace(">", ""));
+    let announceTitle = interaction.options.get("title").value;
+    let announcement = interaction.options.get("announcement").value;
+    let announceChannel = interaction.guild.channels.cache.find(c => c.id === interaction.options.get("channel").value.replace("<#", "").replace(">", ""));
     
     if(!announceChannel) {
       const announceErrorReplyEmbed = new Discord.EmbedBuilder()
