@@ -146,6 +146,10 @@
     ]
   },
   {
+    "name": "ping",
+    "description": "Calculates the bot's message latency and the Discord API heartbeat's ping"
+  },
+  {
     "name": "uncitizen",
     "description": "Remove the @Citizen role from a member",
     "options": [
