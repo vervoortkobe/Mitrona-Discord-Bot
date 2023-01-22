@@ -1,7 +1,7 @@
 const Discord = require("discord.js");
 const fs = require("fs");
 
-module.exports.run = async (client, interaction, commandName, options, fs) => {
+module.exports.run = async (client, interaction) => {
 
     if(!interaction.member.permissions.has(Discord.PermissionsBitField.Flags.Administrator)) {
       const gcancelErrorReplyEmbed = new Discord.EmbedBuilder()
@@ -10,7 +10,7 @@ module.exports.run = async (client, interaction, commandName, options, fs) => {
       return interaction.reply({ embeds: [ gcancelErrorReplyEmbed ], ephemeral: true });
     }
 
-    if(!options.get("giveaway") || !options.get("giveaway").value) {
+    if(!interaction.options.get("giveaway") || !interaction.options.get("giveaway").value) {
       const gcancelGiveawayErrorReplyEmbed = new Discord.EmbedBuilder()
       .setColor(0xff0000)
       .setDescription(`❌ **|** ***Error: I couldn't execute that command, because you didn't define a giveaway by messageid!***`)
@@ -20,7 +20,7 @@ module.exports.run = async (client, interaction, commandName, options, fs) => {
     let giveaways = JSON.parse(fs.readFileSync("./giveaways.json", "utf-8"));
 
     giveaways.forEach(ga => {
-      if(ga.giveawaymsg === options.get("giveaway").value) {
+      if(ga.giveawaymsg === interaction.options.get("giveaway").value) {
         if(ga.busy === true && ga.time > Date.now()) {
           if(interaction.guild.id === ga.guild && interaction.guild.channels.cache.find(c => c.id === ga.channel)) {
 
