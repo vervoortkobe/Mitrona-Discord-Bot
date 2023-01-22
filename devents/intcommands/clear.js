@@ -1,7 +1,7 @@
 const Discord = require("discord.js");
 const fs = require("fs");
 
-module.exports.run = async (client, interaction, commandName, options, fs) => {
+module.exports.run = async (client, interaction) => {
 
     if(!interaction.member.permissions.has(Discord.PermissionsBitField.Flags.ManageMessages)) {
       const errorEmbed = new Discord.EmbedBuilder()
@@ -17,9 +17,9 @@ module.exports.run = async (client, interaction, commandName, options, fs) => {
       return interaction.reply({ embeds: [ errorEmbed ], ephemeral: true });
     }
 
-    let amountmsgs = options.get("amount").value;
+    let amountmsgs = interaction.options.get("amount").value;
 
-    if(!options.get("amount") || !amountmsgs) {
+    if(!interaction.options.get("amount") || !amountmsgs) {
       const errorEmbed = new Discord.EmbedBuilder()
       .setColor(0xff0000)
       .setDescription(`❌ **|** ***Error: Please define the amount of messages to purge!***`)
