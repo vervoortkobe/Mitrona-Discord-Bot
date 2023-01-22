@@ -1,7 +1,7 @@
 const Discord = require("discord.js");
 const fs = require("fs");
 
-module.exports.run = async (client, interaction, commandName, options, fs) => {
+module.exports.run = async (client, interaction) => {
 
     if(!interaction.member.permissions.has(Discord.PermissionsBitField.Flags.Administrator)) {
       const giveawayErrorReplyEmbed = new Discord.EmbedBuilder()
@@ -10,11 +10,11 @@ module.exports.run = async (client, interaction, commandName, options, fs) => {
       return interaction.reply({ embeds: [ giveawayErrorReplyEmbed ], ephemeral: true });
     }
 
-    let giveawayChannel = interaction.guild.channels.cache.find(c => c.id === options.get("channel").value.replace("<#", "").replace(">", ""));
-    let duration = options.get("duration").value;
+    let giveawayChannel = interaction.guild.channels.cache.find(c => c.id === interaction.options.get("channel").value.replace("<#", "").replace(">", ""));
+    let duration = interaction.options.get("duration").value;
     let time;
-    let winners = options.get("winners").value;
-    let prize = options.get("prize").value;
+    let winners = interaction.options.get("winners").value;
+    let prize = interaction.options.get("prize").value;
     
     if(!giveawayChannel) {
       const giveawayErrorReplyEmbed = new Discord.EmbedBuilder()
