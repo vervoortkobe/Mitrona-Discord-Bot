@@ -26,7 +26,7 @@ module.exports.run = async (client, interaction) => {
       return interaction.reply({ embeds: [ errorEmbed ], ephemeral: true });
     }
 
-    if(isNaN(amountmsgs) || !typeof amountmsgs === "number" || !parseInt(amountmsgs) || !Number.isInteger(amountmsgs)) {
+    if(isNaN(amountmsgs) || !typeof amountmsgs === "number" || !parseInt(amountmsgs)) {
       const errorEmbed = new Discord.EmbedBuilder()
       .setColor(0x00ff00)
       .setDescription(`❌ **|** ***Error: I couldn't purge these messages, because you didn't give a valid amount of messages!***`)
@@ -46,9 +46,9 @@ module.exports.run = async (client, interaction) => {
 
     const purgeEmbed = new Discord.EmbedBuilder()
     .setColor(0x00ff00)
-    .setDescription(`✅ **|** ***${message.author} purged \`${amount - 1}\` messages!***`)
+    .setDescription(`✅ **|** ***${interaction.member} purged \`${amount - 1}\` messages!***`)
     interaction.reply({ embeds: [ purgeEmbed ]})
-    .then(m => setTimeout(() => m.delete(), 5000));
+    .then(() => setTimeout(() => interaction.deleteReply(), 5000));
   }
 
   module.exports.help = {
