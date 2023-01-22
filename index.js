@@ -196,7 +196,7 @@ client.events = new Discord.Collection();
 client.introute = new Discord.Collection();
 
 //DISCORD COMMANDS LOADING
-fs.readdir("./commands/", (err, files) => {
+fs.readdir("./devents/commands/", (err, files) => {
   if(err) console.log(err);
   let jsfile = files.filter(f => f.split(".").pop() === "js");
   if(jsfile.length <= 0) {
@@ -206,8 +206,8 @@ fs.readdir("./commands/", (err, files) => {
   }
    
   jsfile.forEach((f, i) => {
-    let props = require(`./commands/${f}`);
-    console.log("\x1b[0m", `• commands/${f} was loaded!`);
+    let props = require(`./devents/commands/${f}`);
+    console.log("\x1b[0m", `• devents/commands/${f} was loaded!`);
     client.commands.set(props.help.name, props);
     props.help.aliases.forEach(alias => {
       client.aliases.set(alias, props.help.name);
@@ -290,5 +290,11 @@ fs.readdir("./devents/", (err, files) => {
     if(eventfile) eventfile.run(client, interaction);
   });
 
+//MESSAGE_CREATE
+  client.on("messageCreate", async message => {
+    let eventfile = client.events.get("messageCreate");
+    if(eventfile) eventfile.run(client, message);
+  });
+
 //client.on("debug", e => console.log(e));
-client.login(process.env.TOKEN);
+client.login(process.env.TOKEN); 
