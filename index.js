@@ -192,7 +192,9 @@ const listener = app.listen(process.env.PORT, () => {
 
 client.commands = new Discord.Collection();
 client.aliases = new Discord.Collection();
-client.events = new Discord.Collection();
+client.intcommands = new Discord.Collection();
+client.devents = new Discord.Collection();
+client.buttons = new Discord.Collection();
 client.introute = new Discord.Collection();
 
 //DISCORD COMMANDS LOADING
@@ -226,7 +228,9 @@ fs.readdir("./devents/intcommands/", (err, files) => {
   }
    
   jsfile.forEach((f, i) => {
+    let props = require(`./devents/intcommands/${f}`);
     console.log("\x1b[0m", `• devents/intcommands/${f} was loaded!`);
+    client.intcommands.set(props.help.name, props);
   });
 });
 
@@ -241,7 +245,9 @@ fs.readdir("./devents/buttons/", (err, files) => {
   }
    
   jsfile.forEach((f, i) => {
+    let props = require(`./devents/buttons/${f}`);
     console.log("\x1b[0m", `• devents/buttons/${f} was loaded!`);
+    client.buttons.set(props.help.name, props);
   });
 });
 
@@ -257,7 +263,7 @@ fs.readdir("./devents/", (err, files) => {
   jsfile.forEach((f, i) => {
     let props = require(`./devents/${f}`);
     console.log("\x1b[0m", `• devents/${f} was loaded!`);
-    client.events.set(props.help.name, props);
+    client.devents.set(props.help.name, props);
   });
 });
 
@@ -268,32 +274,30 @@ fs.readdir("./devents/", (err, files) => {
   client.introute.set(intprops.help.name, intprops);
   let introutefile = client.introute.get("introute");
   if(introutefile) introutefile.run(client);
-
-/////////////////////////////////////////////////////////////////////////////////////////////
-//READY
-  client.on("ready", async () => {
-    let eventfile = client.events.get("ready");
-    if(eventfile) eventfile.run(client, app);
-  });
-
+  
 /////////////////////////////////////////////////////////////////////////////////////////////
 //DISCORD EVENTS
+//READY
+  client.on("ready", async () => {
+    let deventfile = client.devents.get("ready");
+    if(deventfile) deventfile.run(client, app);
+  });
 //GUILD_MEMBER_ADD
   client.on("guildMemberAdd", member => {
-    let eventfile = client.events.get("guildMemberAdd");
-    if(eventfile) eventfile.run(client, member);
+    let deventfile = client.devents.get("guildMemberAdd");
+    if(deventfile) deventfile.run(client, member);
   });
 
 //INTERACTION_CREATE
   client.on("interactionCreate", async interaction => {
-    let eventfile = client.events.get("interactionCreate");
-    if(eventfile) eventfile.run(client, interaction);
+    let deventfile = client.devents.get("interactionCreate");
+    if(deventfile) deventfile.run(client, interaction);
   });
 
 //MESSAGE_CREATE
   client.on("messageCreate", async message => {
-    let eventfile = client.events.get("messageCreate");
-    if(eventfile) eventfile.run(client, message);
+    let deventfile = client.devents.get("messageCreate");
+    if(deventfile) deventfile.run(client, message);
   });
 
 //client.on("debug", e => console.log(e));
