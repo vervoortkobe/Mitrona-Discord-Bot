@@ -1,7 +1,7 @@
 const Discord = require("discord.js");
 const fs = require("fs");
 
-module.exports.run = async (client, interaction, commandName, options, fs) => {
+module.exports.run = async (client, interaction) => {
     
     if(!interaction.member.permissions.has(Discord.PermissionsBitField.Flags.Administrator)) {
       const autoroleErrorReplyEmbed = new Discord.EmbedBuilder()
@@ -10,11 +10,11 @@ module.exports.run = async (client, interaction, commandName, options, fs) => {
       return interaction.reply({ embeds: [ autoroleErrorReplyEmbed ], ephemeral: true });
     }
 
-    let mode = options.get("mode").value;
+    let mode = interaction.options.get("mode").value;
     let role;
     let rolenameid;
-    if(options.get("role") && options.get("role").value) {
-      role = options.get("role").value;
+    if(interaction.options.get("role") && interaction.options.get("role").value) {
+      role = interaction.options.get("role").value;
       rolenameid = interaction.guild.roles.cache.find(r => r.id === role.replace("<@&", "").replace(">", ""));
       if(!rolenameid) {
         const autoroleRoleErrorReplyEmbed = new Discord.EmbedBuilder()
