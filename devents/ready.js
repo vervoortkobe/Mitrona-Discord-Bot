@@ -4,11 +4,19 @@ const fs = require("fs");
 module.exports.run = async (client, app) => {
 
     function commandsReady() {
-      fs.readdir("./commands/", (err, files) => {
+      fs.readdir("./devents/commands/", (err, files) => {
         let jsfile = files.filter(f => f.split(".").pop() === "js");
 
         console.log("\x1b[0m", "");
         console.log("\x1b[36m", `» Loaded Commands: ${jsfile.length}`);
+      });
+    }
+    
+    function intcommandsReady() {
+      fs.readdir("./devents/intcommands/", (err, files) => {
+        let jsfile = files.filter(f => f.split(".").pop() === "js");
+        
+        console.log("\x1b[36m", `» Loaded Intcommands: ${jsfile.length}`);
       });
     }
 
@@ -27,6 +35,7 @@ module.exports.run = async (client, app) => {
     }
 
     commandsReady();
+    intcommandsReady();
     setTimeout(eventsReady, 10);
 
     client.user.setActivity(`${process.env.ACTIVITY}`, { type: Discord.ActivityType.Watching });
