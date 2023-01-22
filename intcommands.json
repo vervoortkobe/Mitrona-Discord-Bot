@@ -76,18 +76,6 @@
     "description": "Get the URL to the dashboard"
   },
   {
-    "name": "eval",
-    "description": "Execute evaluated code straight through the bot",
-    "options": [
-      {
-        "name": "code",
-        "description": "The evaluated code that has to be executed",
-        "type": 3,
-        "required": true
-      }
-    ]
-  },
-  {
     "name": "gcancel",
     "description": "Cancel a specific giveaway, using its messageid",
     "options": [
