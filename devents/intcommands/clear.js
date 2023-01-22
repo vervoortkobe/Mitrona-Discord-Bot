@@ -10,7 +10,7 @@ module.exports.run = async (client, interaction) => {
       return interaction.reply({ embeds: [ errorEmbed ], ephemeral: true });
     }
   
-    if(!interaction.guild.me.permissions.has(Discord.PermissionsBitField.Flags.ManageMessages)) {
+    if(!interaction.guild.members.me.permissions.has(Discord.PermissionsBitField.Flags.ManageMessages)) {
       const errorEmbed = new Discord.EmbedBuilder()
       .setColor(0xff0000)
       .setDescription(`❌ **|** ***Error: I don't have the sufficient permissions to purge these messages!***`)
