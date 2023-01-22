@@ -1,7 +1,7 @@
 const Discord = require("discord.js");
 const fs = require("fs");
 
-module.exports.run = async (client, interaction, commandName, options, fs) => {
+module.exports.run = async (client, interaction) => {
 
     if(!interaction.member.permissions.has(Discord.PermissionsBitField.Flags.Administrator)) {
       const gcheckErrorReplyEmbed = new Discord.EmbedBuilder()
@@ -13,7 +13,7 @@ module.exports.run = async (client, interaction, commandName, options, fs) => {
     let giveaways = JSON.parse(fs.readFileSync("./giveaways.json", "utf-8"));
 
     let text = "";
-    if(!giveaways) {
+    if(!giveaways || giveaways.length === 0) {
       text = `> ❌ \`None\``;
     } else {
       giveaways.forEach(ga => {
@@ -33,6 +33,8 @@ module.exports.run = async (client, interaction, commandName, options, fs) => {
           } else {
             text += `> \`❌\` **|** \`${endsat}\` **|** ${gaChannel} **|** [${ga.giveawaymsg}](https://discord.com/channels/${ga.guild}/${ga.channel}/${ga.giveawaymsg}) **|** \`${ga.prize}\` **|** \`${ga.participants.length}\`\n`;
           }
+        } else {
+          text = `> ❌ \`None\``;
         }
       });
     }
