@@ -1,7 +1,7 @@
 const Discord = require("discord.js");
 const fs = require("fs");
 
-module.exports.run = async (client, interaction, commandName, options, fs) => {
+module.exports.run = async (client, interaction) => {
     
     let housingsteward = interaction.guild.roles.cache.find(r => r.id === `${process.env.HOUSINGSTEWARD_ROLE}`);
     let citizen = interaction.guild.roles.cache.find(r => r.id === `${process.env.CITIZEN_ROLE}`);
@@ -13,7 +13,7 @@ module.exports.run = async (client, interaction, commandName, options, fs) => {
       return interaction.reply({ embeds: [ uncitizenErrorReplyEmbed ], ephemeral: true });
     }
 
-    let member = interaction.guild.members.cache.get(options.get("member").value.replace("<@", "").replace(">", ""));
+    let member = interaction.guild.members.cache.get(interaction.options.get("member").value.replace("<@", "").replace(">", ""));
 
     if(!member) {
       const uncitizenMemberErrorReplyEmbed = new Discord.EmbedBuilder()
