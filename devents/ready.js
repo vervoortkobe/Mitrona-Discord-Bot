@@ -28,7 +28,7 @@ module.exports.run = async (client, app) => {
         console.log("\x1b[36m", `» Cached Servers: ${client.guilds.cache.size}`);
         console.log("\x1b[36m", `» Cached Users: ${client.users.cache.size}`);
         console.log("\x1b[0m", "");
-        console.log("\x1b[36m", `» Activity: PLAYING test`);
+        console.log("\x1b[36m", `» Activity: WATCHING ${process.env.ACTIVITY}`);
         console.log("\x1b[32m", `✔️  ${client.user.username} was started!`);
         console.log("\x1b[0m", "");
       });
