@@ -106,8 +106,9 @@ module.exports.run = async (req, res, fs, client) => {
     let seconds = Math.floor(totalSeconds % 60);
     let uptime = `${days}d ${hours}h ${minutes}m ${seconds}s`;
 
-    let members = client.guilds.cache.get(process.env.MITRONA_SERVERID).memberCount
-
+    let members = await client.guilds.cache.get(process.env.MITRONA_SERVERID).memberCount;
+    //let members = 6;
+    
     return res.send(`
       ${home_head}
       <head>
