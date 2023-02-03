@@ -32,7 +32,7 @@ module.exports.run = async (req, res, fs) => {
   					client_id: process.env.DISCORD_OAUTH2_CLIENTID,
   					client_secret: process.env.DISCORD_OAUTH2_CLIENTSECRET,
   					grant_type: "authorization_code",
-  					redirect_uri: process.env.DISCORD_OAUTH2_REDIRECTURI,
+  					redirect_uri: process.env.DISCORD_OAUTH2_REDIRECTURI_LOCAL,
   					scope: "identify",
   					code
   				}),
@@ -71,9 +71,7 @@ module.exports.run = async (req, res, fs) => {
     			});
           
         } else {
-          return res.send(`<script>setTimeout(() => { window.location.href = "/home" }, 3000);</script>
-                    <center>Please enter a valid username & password!<br>
-                    Redirecting to /home in 3 seconds...</center>`);
+          return res.redirect("/");
         }
         
   		} catch(err) {
