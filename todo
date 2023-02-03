@@ -1,0 +1,9 @@
+AUTHURL_LOCAL home.js
+DISCORD_OAUTH2_REDIRECTURI_LOCAL auth.js
+
+kzou zeggen, de rollen die een cmd mogen uitvoeren?
+en de settings van de cmds
+
+settimeout duration home_head.html
+
+PORT
