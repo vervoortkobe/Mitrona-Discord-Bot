@@ -5,7 +5,7 @@ const session = require("express-session");
 const path = require("path");
 const requestIp = require("request-ip");
 require("dotenv").config();
-//process.env.PORT = 80;
+process.env.PORT = 80;
 
 ///////////////////////////////////////////////////////////////////////////////////
 //DISCORD CLIENT INITIALISATION
@@ -121,12 +121,12 @@ icons.forEach(i => {
 });
 
 //DISCORD LOGIN
-app.get("/login", function(req, res) {
+app.get("/login", (req, res) => {
   let eventfile = require("./events/get/login.js")
   if(eventfile) eventfile.run(req, res, fs);
 });
 
-app.get("/auth", function(req, res) {
+app.get("/auth", (req, res) => {
   let eventfile = require("./events/get/auth.js")
   if(eventfile) eventfile.run(req, res, fs);
 });
@@ -134,6 +134,53 @@ app.get("/auth", function(req, res) {
 app.post("/logout", (req, res) => {
   let eventfile = require("./events/post/logout.js")
   if(eventfile) eventfile.run(req, res, fs);
+});
+
+//SLASH COMMANDS
+app.get("/announce", (req, res) => {
+  let eventfile = require("./events/get/announce.js")
+  if(eventfile) eventfile.run(req, res, fs);
+});
+app.get("/autorole", (req, res) => {
+  let eventfile = require("./events/get/autorole.js")
+  if(eventfile) eventfile.run(req, res, fs);
+});
+app.get("/citizen", (req, res) => {
+  let eventfile = require("./events/get/citizen.js")
+  if(eventfile) eventfile.run(req, res, fs);
+});
+app.get("/clear", (req, res) => {
+  let eventfile = require("./events/get/clear.js")
+  if(eventfile) eventfile.run(req, res, fs);
+});
+app.get("/gcancel", (req, res) => {
+  let eventfile = require("./events/get/gcancel.js")
+  if(eventfile) eventfile.run(req, res, fs);
+});
+app.get("/gcheck", (req, res) => {
+  let eventfile = require("./events/get/gcheck.js")
+  if(eventfile) eventfile.run(req, res, fs);
+});
+app.get("/gend", (req, res) => {
+  let eventfile = require("./events/get/gend.js")
+  if(eventfile) eventfile.run(req, res, fs);
+});
+app.get("/giveaway", (req, res) => {
+  let eventfile = require("./events/get/giveaway.js")
+  if(eventfile) eventfile.run(req, res, fs);
+});
+app.get("/greroll", (req, res) => {
+  let eventfile = require("./events/get/greroll.js")
+  if(eventfile) eventfile.run(req, res, fs);
+});
+app.get("/uncitizen", (req, res) => {
+  let eventfile = require("./events/get/uncitizen.js")
+  if(eventfile) eventfile.run(req, res, fs);
+});
+
+//ROOT ROUTE
+app.get("*", (req, res) => {
+  res.redirect("/");
 });
 
 //LISTENER
