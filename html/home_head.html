@@ -1,11 +1,9 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8">
-    <title>Mitrona Dashboard &bull; Home</title>
-
     <link id="favicon" rel="icon" href="./icons/logo.png">
 
+    <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Modify Mitrona's settings through the dashboard...">
@@ -38,6 +36,13 @@
       img { border-radius: 10px; max-width: 50%; height: auto; }
       .pagecontent { display: none; }
       .preload { padding-top: 19%; padding-bottom: 19%; }
+      center { position: relative; }
+      .details { position: absolute; top: 2vh; right: 2vw; }
+      .details img { border-radius: 30px; width: 8vh; height: auto; }
+      .details b { font-size: 1.2rem;  }
+      .details li { display: inline-block; }
+      .details li:nth-child(1) { padding: 1vh; }
+      .commands a button { margin-bottom: 2vh; width: 10vw; }
     </style>
     
     <script>
@@ -101,5 +106,5 @@
     setTimeout(() => {
       document.getElementById("preload").style.display = "none";
       document.getElementById("pagecontent").style.display = "block";
-    }, 3000);
+    }, 0000);
   </script>
