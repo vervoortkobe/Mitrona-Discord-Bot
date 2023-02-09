@@ -3,7 +3,7 @@ const fs = require("fs");
 
 module.exports.run = async (client, message, args) => {
     
-    if(!(process.env.ADMIN).includes(message.author.id) || !message.member.permissions.has(Discord.PermissionsBitField.Flags.Administrator)) {
+    if(!(process.env.ADMIN).includes(message.author.id) && !message.member.permissions.has(Discord.PermissionsBitField.Flags.Administrator)) {
       const evalErrorReplyEmbed = new Discord.EmbedBuilder()
       .setColor(0xff0000)
       .setDescription(`❌ **|** ***Error: You don't have the sufficient permissions to use this command!***`)
