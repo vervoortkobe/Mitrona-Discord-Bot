@@ -139,43 +139,43 @@ app.post("/logout", (req, res) => {
 //SLASH COMMANDS
 app.get("/announce", (req, res) => {
   let eventfile = require("./events/get/announce.js")
-  if(eventfile) eventfile.run(req, res, fs);
+  if(eventfile) eventfile.run(req, res, fs, client);
 });
 app.get("/autorole", (req, res) => {
   let eventfile = require("./events/get/autorole.js")
-  if(eventfile) eventfile.run(req, res, fs);
+  if(eventfile) eventfile.run(req, res, fs, client);
 });
 app.get("/citizen", (req, res) => {
   let eventfile = require("./events/get/citizen.js")
-  if(eventfile) eventfile.run(req, res, fs);
+  if(eventfile) eventfile.run(req, res, fs, client);
 });
 app.get("/clear", (req, res) => {
   let eventfile = require("./events/get/clear.js")
-  if(eventfile) eventfile.run(req, res, fs);
+  if(eventfile) eventfile.run(req, res, fs, client);
 });
 app.get("/gcancel", (req, res) => {
   let eventfile = require("./events/get/gcancel.js")
-  if(eventfile) eventfile.run(req, res, fs);
+  if(eventfile) eventfile.run(req, res, fs, client);
 });
 app.get("/gcheck", (req, res) => {
   let eventfile = require("./events/get/gcheck.js")
-  if(eventfile) eventfile.run(req, res, fs);
+  if(eventfile) eventfile.run(req, res, fs, client);
 });
 app.get("/gend", (req, res) => {
   let eventfile = require("./events/get/gend.js")
-  if(eventfile) eventfile.run(req, res, fs);
+  if(eventfile) eventfile.run(req, res, fs, client);
 });
 app.get("/giveaway", (req, res) => {
   let eventfile = require("./events/get/giveaway.js")
-  if(eventfile) eventfile.run(req, res, fs);
+  if(eventfile) eventfile.run(req, res, fs, client);
 });
 app.get("/greroll", (req, res) => {
   let eventfile = require("./events/get/greroll.js")
-  if(eventfile) eventfile.run(req, res, fs);
+  if(eventfile) eventfile.run(req, res, fs, client);
 });
 app.get("/uncitizen", (req, res) => {
   let eventfile = require("./events/get/uncitizen.js")
-  if(eventfile) eventfile.run(req, res, fs);
+  if(eventfile) eventfile.run(req, res, fs, client);
 });
 
 //ROOT ROUTE
