@@ -38,7 +38,7 @@ module.exports.run = async (client, interaction, fs) => {
           const giveawaymsgDeletedEmbed = new Discord.EmbedBuilder()
           .setColor(`${color}`)
           .setTitle("🥳 GIVEAWAY")
-          .setDescription(`🎊 Participate in this giveaway by reacting with \`🎉\`!\n\n> **Ends at:** \`${endsat}\`\n> **Winners:** \`${winners}\`\n> **Prize:** \`${prize}\`\n> **Participants:** \`${ga.participants.length}\``)
+          .setDescription(`🎊 Participate in this giveaway by reacting with \`🎉\`!\n\n> **Ends at:** \`${endsat}\`\n> **Winners:** \`${ga.winners}\`\n> **Prize:** \`${ga.prize}\`\n> **Participants:** \`${ga.participants.length}\``)
           .setTimestamp()
 
           let giveawayGuild = client.guilds.cache.get(ga.guild);
