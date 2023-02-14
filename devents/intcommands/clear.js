@@ -40,15 +40,29 @@ module.exports.run = async (client, interaction) => {
       return interaction.reply({ embeds: [ errorEmbed ], ephemeral: true });
     }
 
-    var amount = parseInt(amountmsgs) + 1;
+    let amount = parseInt(amountmsgs) + 1;
 
-    interaction.channel.bulkDelete(amount);
-
-    const purgeEmbed = new Discord.EmbedBuilder()
-    .setColor(0x00ff00)
-    .setDescription(`✅ **|** ***${interaction.member} purged \`${amount - 1}\` messages!***`)
-    interaction.reply({ embeds: [ purgeEmbed ]})
-    .then(() => setTimeout(() => interaction.deleteReply(), 5000));
+    interaction.channel.messages.fetch({ limit: amount, cache: false })
+    .then(msgs => {
+      let msgstooold = 0;
+      msgs.forEach(m => {
+        if(m.createdTimestamp + 1209600 <= Date.now()) msgstooold++;
+      });
+      if(msgstooold >= 1) {
+        const purgeErrorEmbed = new Discord.EmbedBuilder()
+        .setColor(0xff0000)
+        .setDescription(`❌ **|** ***I couldn't purge \`${amount - 1}\` messages, because there are \`${msgstooold}\` messages older than 14 days!***`)
+        return interaction.reply({ embeds: [ purgeErrorEmbed ]});
+      } else {
+        interaction.channel.bulkDelete(amount);
+    
+        const purgeEmbed = new Discord.EmbedBuilder()
+        .setColor(0x00ff00)
+        .setDescription(`✅ **|** ***${interaction.member} purged \`${amount - 1}\` messages!***`)
+        interaction.reply({ embeds: [ purgeEmbed ]});
+      }
+    })
+    .catch(console.error);
   }
 
   module.exports.help = {
