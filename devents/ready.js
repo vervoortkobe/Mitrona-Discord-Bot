@@ -1,7 +1,7 @@
 const Discord = require("discord.js");
 const fs = require("fs");
 
-module.exports.run = async (client, app) => {
+module.exports.run = async (client) => {
 
     function commandsReady() {
       fs.readdir("./devents/commands/", (err, files) => {
@@ -19,6 +19,9 @@ module.exports.run = async (client, app) => {
         console.log("\x1b[36m", `» Loaded Intcommands: ${jsfile.length}`);
       });
     }
+
+    const server = require("../server.js");
+    server.server(client);
 
     function eventsReady() {
       fs.readdir("./devents/", (err, files) => {
@@ -39,23 +42,6 @@ module.exports.run = async (client, app) => {
     setTimeout(eventsReady, 10);
 
     client.user.setActivity(`${process.env.ACTIVITY}`, { type: Discord.ActivityType.Watching });
-
-    app.get("/api/", (req, res) => {
-      let totalSeconds = (client.uptime / 1000);
-      let days = Math.floor(totalSeconds / 86400);
-      totalSeconds %= 86400;
-      let hours = Math.floor(totalSeconds / 3600);
-      totalSeconds %= 3600;
-      let minutes = Math.floor(totalSeconds / 60);
-      let seconds = Math.floor(totalSeconds % 60);
-      let uptime = `${days}d ${hours}h ${minutes}m ${seconds}s`;
-      res.json({
-        "botstats": {
-          "uptime": uptime,
-          "users": client.guilds.cache.get(process.env.MITRONA_SERVERID).memberCount
-        }
-      });
-    });
 
 //GIVEAWAYS
     setInterval(() => {
