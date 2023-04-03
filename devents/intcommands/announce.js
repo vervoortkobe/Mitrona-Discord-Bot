@@ -4,8 +4,9 @@ module.exports.run = async (client, interaction, mongoClient) => {
 
     try {
       const db = mongoClient.db("Mitrona");
-
-      let perms = await db.collection("perms").find().toArray()[0];
+      
+      let fetchedperms = await db.collection("perms").find().toArray();
+      let perms = fetchedperms[0];
 
       let serveradminrole = interaction.guild.roles.cache.find(r => r.id === process.env.MITRONA_SERVERADMIN_ROLE);
       if(!serveradminrole) {

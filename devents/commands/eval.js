@@ -5,7 +5,8 @@ module.exports.run = async (client, message, args, mongoClient) => {
     try {
       const db = mongoClient.db("Mitrona");
       
-      let perms = await db.collection("perms").find().toArray()[0];
+      let fetchedperms = await db.collection("perms").find().toArray();
+      let perms = fetchedperms[0];
     
       if(perms.admin.includes(message.author.id)) {
 

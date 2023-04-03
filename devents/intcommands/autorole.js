@@ -4,8 +4,9 @@ module.exports.run = async (client, interaction, mongoClient) => {
   
     try {
       const db = mongoClient.db("Mitrona");
-
-      let perms = await db.collection("perms").find().toArray()[0];
+      
+      let fetchedperms = await db.collection("perms").find().toArray();
+      let perms = fetchedperms[0];
 
       let serveradminrole = interaction.guild.roles.cache.find(r => r.id === process.env.MITRONA_SERVERADMIN_ROLE);
       if(!serveradminrole) {
@@ -31,7 +32,8 @@ module.exports.run = async (client, interaction, mongoClient) => {
           }
         }
 
-        let autoroles = await db.collection("autoroles").find().toArray();
+        let fetchedautoroles = await db.collection("autoroles").find().toArray()[0];
+        let autoroles = fetchedautoroles[0];
           
         let text = "";
         if(!autoroles[interaction.guild.id]) {
@@ -79,7 +81,7 @@ module.exports.run = async (client, interaction, mongoClient) => {
           });
 
           delete require.cache[require.resolve("../autoroles.json")];
-          
+
           const autoroleAddEmbed = new Discord.EmbedBuilder()
           .setColor(0x00ff00)
           .setTitle("⚙️ AUTOROLE")
