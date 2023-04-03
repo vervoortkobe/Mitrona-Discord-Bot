@@ -1,6 +1,4 @@
-module.exports.run = async (req, res, fs) => {
-  
-  let perms = JSON.parse(fs.readFileSync("./perms.json", "utf-8"));
+module.exports.run = async (req, res) => {
   
 	if(req.session.loggedin) {
 

@@ -1,7 +1,6 @@
-module.exports.run = async (req, res, client) => {
+module.exports.run = async (req, res, client, mongoClient) => {
 
   const home_head = fs.readFileSync("./html/home_head.html");
-  let perms = JSON.parse(fs.readFileSync("./perms.json", "utf-8"));
   
 //LOGGED IN
   if(req.session.loggedin) {

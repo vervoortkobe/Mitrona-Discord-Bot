@@ -122,70 +122,70 @@ function server(client, mongoClient) {
   });
 
   //DISCORD LOGIN
-  app.get("/login", (req, res) => {
-    let eventfile = require("./events/get/login.js");
-    if(eventfile) eventfile.run(req, res, fs);
-  });
+  // app.get("/login", (req, res) => {
+  //   let eventfile = require("./events/get/login.js");
+  //   if(eventfile) eventfile.run(req, res, mongoClient);
+  // });
 
   app.get("/auth", (req, res) => {
     let eventfile = require("./events/get/auth.js");
-    if(eventfile) eventfile.run(req, res, fs);
+    if(eventfile) eventfile.run(req, res, mongoClient);
   });
 
   app.post("/logout", (req, res) => {
     let eventfile = require("./events/post/logout.js");
-    if(eventfile) eventfile.run(req, res, fs);
+    if(eventfile) eventfile.run(req, res);
   });
 
   //SLASH COMMANDS
   app.get("/announce", (req, res) => {
     let eventfile = require("./events/get/main.js");
-    if(eventfile) eventfile.run(req, res, client, "announce");
+    if(eventfile) eventfile.run(req, res, client, "announce", mongoClient);
   });
   app.get("/autorole", (req, res) => {
     let eventfile = require("./events/get/main.js");
-    if(eventfile) eventfile.run(req, res, client, "autorole");
+    if(eventfile) eventfile.run(req, res, client, "autorole", mongoClient);
   });
   app.get("/citizen", (req, res) => {
     let eventfile = require("./events/get/main.js");
-    if(eventfile) eventfile.run(req, res, client, "citizen");
+    if(eventfile) eventfile.run(req, res, client, "citizen", mongoClient);
   });
   app.get("/clear", (req, res) => {
     let eventfile = require("./events/get/main.js");
-    if(eventfile) eventfile.run(req, res, client, "clear");
+    if(eventfile) eventfile.run(req, res, client, "clear", mongoClient);
   });
   app.get("/gcancel", (req, res) => {
     let eventfile = require("./events/get/main.js");
-    if(eventfile) eventfile.run(req, res, client, "gcancel");
+    if(eventfile) eventfile.run(req, res, client, "gcancel", mongoClient);
   });
   app.get("/gcheck", (req, res) => {
     let eventfile = require("./events/get/main.js");
-    if(eventfile) eventfile.run(req, res, client, "gcheck");
+    if(eventfile) eventfile.run(req, res, client, "gcheck", mongoClient);
   });
   app.get("/gend", (req, res) => {
     let eventfile = require("./events/get/main.js");
-    if(eventfile) eventfile.run(req, res, client, "gend");
+    if(eventfile) eventfile.run(req, res, client, "gend", mongoClient);
   });
   app.get("/giveaway", (req, res) => {
     let eventfile = require("./events/get/main.js");
-    if(eventfile) eventfile.run(req, res, client, "giveaway");
+    if(eventfile) eventfile.run(req, res, client, "giveaway", mongoClient);
   });
   app.get("/greroll", (req, res) => {
     let eventfile = require("./events/get/main.js");
-    if(eventfile) eventfile.run(req, res, client, "greroll");
+    if(eventfile) eventfile.run(req, res, client, "greroll", mongoClient);
   });
   app.get("/uncitizen", (req, res) => {
     let eventfile = require("./events/get/main.js");
-    if(eventfile) eventfile.run(req, res, client, "uncitizen");
+    if(eventfile) eventfile.run(req, res, client, "uncitizen", mongoClient);
   });
 
   //ACTIONS
   app.post("/add", (req, res) => {
-    let eventfile = require("./events/post/add.js");
+    let eventfile = require("./events/post/add.js", mongoClient);
     if(eventfile) eventfile.run(req, res, fs);
   });
   app.post("/remove", (req, res) => {
-    let eventfile = require("./events/post/remove.js");
+    let eventfile = require("./events/post/remove.js", mongoClient);
     if(eventfile) eventfile.run(req, res, fs);
   });
 

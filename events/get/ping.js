@@ -1,4 +1,4 @@
-module.exports.run = async (req, res, fs) => {
+module.exports.run = async (req, res) => {
 
   return res.send("online");
 }
