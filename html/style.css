@@ -1,0 +1,126 @@
+
+body { overflow-x: hidden; }
+h1 { font-weight: bold; }
+p { color: #aaa; }
+.pu { display: inline; }
+.pu b {
+  color: white;
+  font-weight: bold;
+  font-size: 1rem;
+  background-color: #5865f2;
+  border-radius: 6px;
+  padding: 4px;
+}
+.perms {
+  font-size: 1.5rem;
+  width: 60vw;
+}
+.addroledesc { font-size: 1.5rem; }
+.searchdropdown {
+  width: 20vw;
+  height: 40vh;
+}
+.searchdropdown li {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+  margin-left: -2.1vw;
+}
+.config li b a {
+  color: white;
+  font-weight: bold;
+  font-size: 1.2rem;
+  border-radius: 7px;
+  padding: 3px;
+  align-self: flex-start;
+}
+.roles li {
+  display: inline;
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 1vh;
+}
+.roles {
+  height: 18vh;
+  overflow: auto;
+}
+.grid {
+  margin-top: 1rem;
+  display: grid; 
+  grid-template-columns: repeat(2, 1fr);
+  font-size: 1.5rem;
+  width: 40vw;
+  margin-left: auto;
+  margin-right: auto;
+}
+.config { grid-column: 1/2; }
+.allowedroles { grid-column: 2/3; }
+.allowedroles li {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+  display: inline;
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 1vh;
+}
+.allowedroles li b a {
+  color: white;
+  font-weight: bold;
+  font-size: 1.2rem;
+  border-radius: 7px;
+  padding: 4px;
+  align-self: flex-start;
+}
+.allowedrolebtn {
+  align-self: flex-end;
+}
+/*
+::-webkit-scrollbar { width: 10px }
+::-webkit-scrollbar-track { background:#43494e }
+::-webkit-scrollbar-thumb {
+  background:#fff;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover { background:#5865f2 }
+*/
+.success {
+  height: auto;
+  width: 30vw;
+  position: fixed;
+  right: 2vw;
+  top: 12vh;
+}
+.slideIn {
+  animation-duration: 1s;
+  animation-name: slideIn;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: backwards;
+}
+.slideOut {
+  animation-duration: 1s;
+  animation-name: slideOut;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: forwards;
+}
+.success .btn-close {
+  margin-top: 1.7vh;
+}
+@keyframes slideIn {
+  0% {
+    transform: translate(35vw);
+  }
+  100% {
+    transform: translate(0vw);
+  }
+}
+@keyframes slideOut {
+  0% {
+    transform: translate(0vw);
+  }
+  100% {
+    transform: translate(35vw);
+  }
+}

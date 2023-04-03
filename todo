@@ -1,0 +1,7 @@
+AUTHURL_LOCAL home.js
+DISCORD_OAUTH2_REDIRECTURI_LOCAL auth.js
+
+PORT
+
+- mongodb
+- websockets
