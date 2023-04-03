@@ -1,8 +1,6 @@
 const Discord = require("discord.js");
-const fs = require("fs");
-let perms = JSON.parse(fs.readFileSync("./perms.json", "utf-8"));
 
-module.exports.run = async (client, interaction) => {
+module.exports.run = async (client, interaction, mongoClient) => {
 
     let serveradminrole = interaction.guild.roles.cache.find(r => r.id === process.env.MITRONA_SERVERADMIN_ROLE);
     if(!serveradminrole) {

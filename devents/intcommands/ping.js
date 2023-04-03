@@ -1,8 +1,6 @@
 const Discord = require("discord.js");
-const fs = require("fs");
-let perms = JSON.parse(fs.readFileSync("./perms.json", "utf-8"));
 
-module.exports.run = async (client, interaction) => {
+module.exports.run = async (client, interaction, mongoClient) => {
     
     const mEmbed = new Discord.EmbedBuilder()
     .setColor(0x03a9f4)

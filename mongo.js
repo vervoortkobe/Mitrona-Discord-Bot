@@ -5,27 +5,10 @@ const client = new MongoClient(process.env.MONGODB);
 
 async function run() {
   try {
-    const database = client.db("Mitrona");
-    const coll = database.collection("perms");
+    const db = client.db("Mitrona");
+    const coll = db.collection("perms");
 
-    await coll.insertOne({
-      "admin": [
-        "408289224761016332",
-        "606106751346933770",
-        "866859570249072650",
-        "362343214939635713"
-      ],
-      "announce": [],
-      "autorole": [],
-      "citizen": [],
-      "clear": [],
-      "gcancel": [],
-      "gcheck": [],
-      "gend": [],
-      "giveaway": [],
-      "greroll": [],
-      "uncitizen": []
-    });
+    await coll.insertOne();
 
     const cursor = coll.find();
     const results = await cursor.toArray();

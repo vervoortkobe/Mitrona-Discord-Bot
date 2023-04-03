@@ -1,9 +1,7 @@
 const Discord = require("discord.js");
-const fs = require("fs");
 const fetch = require("node-fetch");
-let perms = JSON.parse(fs.readFileSync("./perms.json", "utf-8"));
 
-module.exports.run = async (client, message, args) => {
+module.exports.run = async (client, message, args, mongoClient) => {
 
     if(perms.admin.includes(message.author.id)) {
 

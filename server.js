@@ -7,7 +7,7 @@ const requestIp = require("request-ip");
 
 process.env.PORT = 80;
 
-function server(client, Discord) {
+function server(client, mongoClient) {
 
   const app = express();
 
@@ -56,7 +56,7 @@ function server(client, Discord) {
     //ip logging
     //console.log(req.clientIp);
     let eventfile = require("./events/get/home.js");
-    if(eventfile) eventfile.run(req, res, fs, client);
+    if(eventfile) eventfile.run(req, res, client, mongoClient);
   });
 
   app.get("/api/", (req, res) => {
@@ -140,43 +140,43 @@ function server(client, Discord) {
   //SLASH COMMANDS
   app.get("/announce", (req, res) => {
     let eventfile = require("./events/get/main.js");
-    if(eventfile) eventfile.run(req, res, fs, client, Discord, "announce");
+    if(eventfile) eventfile.run(req, res, client, "announce");
   });
   app.get("/autorole", (req, res) => {
     let eventfile = require("./events/get/main.js");
-    if(eventfile) eventfile.run(req, res, fs, client, Discord, "autorole");
+    if(eventfile) eventfile.run(req, res, client, "autorole");
   });
   app.get("/citizen", (req, res) => {
     let eventfile = require("./events/get/main.js");
-    if(eventfile) eventfile.run(req, res, fs, client, Discord, "citizen");
+    if(eventfile) eventfile.run(req, res, client, "citizen");
   });
   app.get("/clear", (req, res) => {
     let eventfile = require("./events/get/main.js");
-    if(eventfile) eventfile.run(req, res, fs, client, Discord, "clear");
+    if(eventfile) eventfile.run(req, res, client, "clear");
   });
   app.get("/gcancel", (req, res) => {
     let eventfile = require("./events/get/main.js");
-    if(eventfile) eventfile.run(req, res, fs, client, Discord, "gcancel");
+    if(eventfile) eventfile.run(req, res, client, "gcancel");
   });
   app.get("/gcheck", (req, res) => {
     let eventfile = require("./events/get/main.js");
-    if(eventfile) eventfile.run(req, res, fs, client, Discord, "gcheck");
+    if(eventfile) eventfile.run(req, res, client, "gcheck");
   });
   app.get("/gend", (req, res) => {
     let eventfile = require("./events/get/main.js");
-    if(eventfile) eventfile.run(req, res, fs, client, Discord, "gend");
+    if(eventfile) eventfile.run(req, res, client, "gend");
   });
   app.get("/giveaway", (req, res) => {
     let eventfile = require("./events/get/main.js");
-    if(eventfile) eventfile.run(req, res, fs, client, Discord, "giveaway");
+    if(eventfile) eventfile.run(req, res, client, "giveaway");
   });
   app.get("/greroll", (req, res) => {
     let eventfile = require("./events/get/main.js");
-    if(eventfile) eventfile.run(req, res, fs, client, Discord, "greroll");
+    if(eventfile) eventfile.run(req, res, client, "greroll");
   });
   app.get("/uncitizen", (req, res) => {
     let eventfile = require("./events/get/main.js");
-    if(eventfile) eventfile.run(req, res, fs, client, Discord, "uncitizen");
+    if(eventfile) eventfile.run(req, res, client, "uncitizen");
   });
 
   //ACTIONS

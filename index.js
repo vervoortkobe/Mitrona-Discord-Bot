@@ -121,24 +121,24 @@ fs.readdir("./devents/", (err, files) => {
 //READY
   client.on("ready", async () => {
     let deventfile = client.devents.get("ready");
-    if(deventfile) deventfile.run(client);
+    if(deventfile) deventfile.run(client, mongoClient);
   });
 //GUILD_MEMBER_ADD
   client.on("guildMemberAdd", member => {
     let deventfile = client.devents.get("guildMemberAdd");
-    if(deventfile) deventfile.run(client, member);
+    if(deventfile) deventfile.run(client, member, mongoClient);
   });
 
 //INTERACTION_CREATE
   client.on("interactionCreate", async interaction => {
     let deventfile = client.devents.get("interactionCreate");
-    if(deventfile) deventfile.run(client, interaction);
+    if(deventfile) deventfile.run(client, interaction, mongoClient);
   });
 
 //MESSAGE_CREATE
   client.on("messageCreate", async message => {
     let deventfile = client.devents.get("messageCreate");
-    if(deventfile) deventfile.run(client, message);
+    if(deventfile) deventfile.run(client, message, mongoClient);
   });
 
 //client.on("debug", e => console.log(e));

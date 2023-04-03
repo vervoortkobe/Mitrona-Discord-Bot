@@ -1,12 +1,9 @@
-const Discord = require("discord.js");
-const fs = require("fs");
-
-module.exports.run = async (client, interaction) => {
+module.exports.run = async (client, interaction, mongoClient) => {
 
     if(interaction.isButton()) {
       if(interaction.customId == "giveawaybutton" && interaction.message.author.id === client.user.id) {
         let buttonfile = require("./buttons/giveawaybutton.js");
-        if(buttonfile) buttonfile.run(client, interaction, fs);
+        if(buttonfile) buttonfile.run(client, interaction, mongoClient);
       }
     }
     

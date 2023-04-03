@@ -1,7 +1,4 @@
-const Discord = require("discord.js");
-const fs = require("fs");
-
-module.exports.run = async (client, member) => {
+module.exports.run = async (client, member, mongoClient) => {
 //AUTOROLE
     let autoroles = JSON.parse(fs.readFileSync("./autoroles.json", "utf-8"));
     if(autoroles[member.guild.id]) {

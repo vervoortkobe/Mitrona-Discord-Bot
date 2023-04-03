@@ -1,7 +1,6 @@
 const Discord = require("discord.js");
-const fs = require("fs");
 
-module.exports.run = async (client, interaction, fs) => {
+module.exports.run = async (client, interaction, mongoClient) => {
 
     let giveaways = JSON.parse(fs.readFileSync("./giveaways.json", "utf-8"));
 
