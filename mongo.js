@@ -1,21 +1,20 @@
 require("dotenv").config();
 const { MongoClient } = require("mongodb");
 
-const client = new MongoClient(process.env.MONGODB);
+const mongoClient = new MongoClient(process.env.MONGODB);
 
 async function run() {
   try {
-    const db = client.db("Mitrona");
-    const coll = db.collection("perms");
+    const db = mongoClient.db("Mitrona");
 
-    await coll.insertOne();
+    //await db.collection("giveaways").insertOne({});
+    let giveaways = await db.collection("giveaways").find().toArray();
 
-    const cursor = coll.find();
-    const results = await cursor.toArray();
-    console.log(results);
+    console.log(giveaways);
+  } catch(err) {
+    console.error(err);
   } finally {
-    // Ensures that the client will close when you finish/error
-    await client.close();
+    await mongoClient.close();
   }
 }
-run().catch(console.dir);
+run()

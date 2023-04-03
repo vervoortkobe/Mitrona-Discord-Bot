@@ -22,7 +22,7 @@ module.exports.run = async (client, interaction, mongoClient) => {
         return interaction.reply({ embeds: [ citizenErrorReplyEmbed ], ephemeral: true });
       }
 
-      let member = interaction.guild.members.cache.get(interaction.options.get("member").value.replace("<@", "").replace(">", ""));
+      let member = interaction.guild.members.cache.get(interaction.options.getMember("member")) || interaction.guild.members.cache.get(interaction.options.get("member").value.replace("<@", "").replace(">", ""));
 
       if(!member) {
         const citizenMemberErrorReplyEmbed = new Discord.EmbedBuilder()

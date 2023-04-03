@@ -5,3 +5,5 @@ PORT
 
 - mongodb: giveaways ready.js
 - websockets
+- help cmd
+- options.getMember("x");

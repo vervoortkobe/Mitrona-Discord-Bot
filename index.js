@@ -110,36 +110,37 @@ fs.readdir("./devents/", (err, files) => {
 
 /////////////////////////////////////////////////////////////////////////////////////////////
 //INTERACTION_ROUTE
-  let intprops = require(`./introute.js`);
-  console.log("\x1b[0m", `• introute.js was loaded!`);
-  client.introute.set(intprops.help.name, intprops);
-  let introutefile = client.introute.get("introute");
-  if(introutefile) introutefile.run(client);
+let intprops = require(`./introute.js`);
+console.log("\x1b[0m", `• introute.js was loaded!`);
+client.introute.set(intprops.help.name, intprops);
+let introutefile = client.introute.get("introute");
+if(introutefile) introutefile.run(client);
   
 /////////////////////////////////////////////////////////////////////////////////////////////
 //DISCORD EVENTS
 //READY
-  client.on("ready", async () => {
-    let deventfile = client.devents.get("ready");
-    if(deventfile) deventfile.run(client, mongoClient);
-  });
+client.on("ready", async () => {
+  let deventfile = client.devents.get("ready");
+  if(deventfile) deventfile.run(client, mongoClient);
+});
+
 //GUILD_MEMBER_ADD
-  client.on("guildMemberAdd", member => {
-    let deventfile = client.devents.get("guildMemberAdd");
-    if(deventfile) deventfile.run(client, member, mongoClient);
-  });
+client.on("guildMemberAdd", member => {
+  let deventfile = client.devents.get("guildMemberAdd");
+  if(deventfile) deventfile.run(client, member, mongoClient);
+});
 
 //INTERACTION_CREATE
-  client.on("interactionCreate", async interaction => {
-    let deventfile = client.devents.get("interactionCreate");
-    if(deventfile) deventfile.run(client, interaction, mongoClient);
-  });
+client.on("interactionCreate", async interaction => {
+  let deventfile = client.devents.get("interactionCreate");
+  if(deventfile) deventfile.run(client, interaction, mongoClient);
+});
 
 //MESSAGE_CREATE
-  client.on("messageCreate", async message => {
-    let deventfile = client.devents.get("messageCreate");
-    if(deventfile) deventfile.run(client, message, mongoClient);
-  });
+client.on("messageCreate", async message => {
+  let deventfile = client.devents.get("messageCreate");
+  if(deventfile) deventfile.run(client, message, mongoClient);
+});
 
 //client.on("debug", e => console.log(e));
 client.login(process.env.TOKEN); 
