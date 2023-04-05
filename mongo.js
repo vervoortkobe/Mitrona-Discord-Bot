@@ -1,4 +1,5 @@
 require("dotenv").config();
+const { GuildScheduledEventPrivacyLevel } = require("discord.js");
 const { MongoClient } = require("mongodb");
 
 const mongoClient = new MongoClient(process.env.MONGODB);
@@ -20,10 +21,13 @@ async function run() {
 
       //autoroles.updateOne({ guildid: "1050764959384080416" }, { $push: { autoroles: "test" } });
 
-      let a = await autoroles.findOne({ guildid: "1050764959384080416" });
+      /*let a = await autoroles.findOne({ guildid: "1050764959384080416" });
       console.log(a.autoroles)
       autoroles.updateOne({ guildid: "1050764959384080416" }, { $set: { autoroles: a.autoroles.filter(e => e != "test") } });
-      console.log(await autoroles.find().toArray());
+      console.log(await autoroles.find().toArray());*/
+
+      let giveaways = await db.collection("giveaways").find().toArray();
+      giveaways.forEach(ga => console.log(ga));
 
     mongoClient.close();
 }

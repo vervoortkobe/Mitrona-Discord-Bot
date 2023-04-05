@@ -1,6 +1,9 @@
 const Discord = require("discord.js");
 
 module.exports.run = async (client, interaction, db) => {
+  
+    let fetchedperms = await db.collection("perms").find().toArray();
+    let perms = fetchedperms[0];
 
     let serveradminrole = interaction.guild.roles.cache.find(r => r.id === process.env.MITRONA_SERVERADMIN_ROLE);
     if(!serveradminrole) {
@@ -18,10 +21,11 @@ module.exports.run = async (client, interaction, db) => {
         .setDescription(`❌ **|** ***Error: I couldn't execute that command, because you didn't define a giveaway by messageid!***`)
         return interaction.reply({ embeds: [ gcancelGiveawayErrorReplyEmbed ], ephemeral: true });
       }
+  
+      let giveaways = await db.collection("giveaways");
 
-      let giveaways = JSON.parse(fs.readFileSync("./giveaways.json", "utf-8"));
-
-      giveaways.forEach(ga => {
+      let ga = await giveaways.findOne({ giveawaymsg: interaction.options.get("giveaway").value })
+      //giveaways.forEach(ga => {
         if(ga.giveawaymsg === interaction.options.get("giveaway").value) {
           if(ga.busy === true && ga.time > Date.now()) {
             if(interaction.guild.id === ga.guild && interaction.guild.channels.cache.find(c => c.id === ga.channel)) {
@@ -51,15 +55,18 @@ module.exports.run = async (client, interaction, db) => {
                   .setDisabled(true)
                 );
 
-                ga.busy = 
-                  Boolean(false);
+                /*ga.busy = 
+                  Boolean(false);*/
 
                 console.log(ga);
-                giveaways.concat(ga);
+                /*giveaways.concat(ga);
 
                 fs.writeFile("./giveaways.json", JSON.stringify(giveaways), (err) => {
                   if(err) console.log(err);
-                });
+                });*/
+
+                let foundObj = await giveaways.findOne({ guildid: interaction.options.get("giveaway").value });
+                giveaways.updateOne({ giveawaymsg: interaction.options.get("giveaway").value }, { $set: { busy: Boolean(false) } });
 
                 console.log(ga.participants.length);
 
@@ -97,7 +104,7 @@ module.exports.run = async (client, interaction, db) => {
           .setDescription(`❌ **|** ***Error: I couldn't cancel this giveaway, because there is no giveaway registered with that messageid!***`)
           return interaction.reply({ embeds: [ gcancelNoGiveawayErrorReplyEmbed ], ephemeral: true });
         }
-      });
+      //});
 
     } else {
       const permsErrorReplyEmbed = new Discord.EmbedBuilder()

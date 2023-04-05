@@ -29,13 +29,13 @@ module.exports.run = async (client, interaction, db) => {
         }
       }
 
-      let autoroles = await db.collection("autoroles");//.find().toArray();
+      let autoroles = await db.collection("autoroles");
         
       let text = "";
-      if(!autoroles.findOne({ guildid: interaction.guild.id })) {
+      if(!await autoroles.findOne({ guildid: interaction.guild.id })) {
         text = `> ❌ \`Not configured yet\``;
       } else {
-        autoroles.findOne({ guildid: interaction.guild.id }).forEach(ar => {
+        await autoroles.findOne({ guildid: interaction.guild.id }).forEach(ar => {
           text += `> ✅ <@&${ar.guildid}>\n`;
         });
       }
@@ -57,7 +57,7 @@ module.exports.run = async (client, interaction, db) => {
       }
 
       if(mode === "add") {
-        if(autoroles[interaction.guild.id].includes(rolenameid.id)) {
+        if(await autoroles.findOne({ guildid: rolenameid.id })) {
           const autoroleRemoveErrorReplyEmbed = new Discord.EmbedBuilder()
           .setColor(0xff0000)
           .setTitle(`⚙️ AUTOROLE`)
@@ -65,7 +65,7 @@ module.exports.run = async (client, interaction, db) => {
           return interaction.reply({ embeds: [ autoroleRemoveErrorReplyEmbed ], ephemeral: true });
         }
 
-        if(!autoroles.findOne({ guildid: interaction.guild.id })) { //DOESN'T EXIST YET -> CREATING
+        if(!await autoroles.findOne({ guildid: interaction.guild.id })) { //DOESN'T EXIST YET -> CREATING
           //autoroles[interaction.guild.id] = [];
           autoroles.insertOne({ guildid: interaction.guild.id, autoroles: [] });
         }
@@ -89,7 +89,7 @@ module.exports.run = async (client, interaction, db) => {
       }
 
       if(mode === "remove") {
-        if(!autoroles[interaction.guild.id].includes(rolenameid.id)) {
+        if(!await autoroles.findOne({ guildid: rolenameid.id })) {
           const autoroleRemoveErrorReplyEmbed = new Discord.EmbedBuilder()
           .setColor(0xff0000)
           .setTitle(`⚙️ AUTOROLE`)
@@ -97,13 +97,13 @@ module.exports.run = async (client, interaction, db) => {
           return interaction.reply({ embeds: [ autoroleRemoveErrorReplyEmbed ], ephemeral: true });
         }
 
-        if(!autoroles.findOne({ guildid: interaction.guild.id })) { //DOESN'T EXIST YET -> CREATING
+        if(!await autoroles.findOne({ guildid: interaction.guild.id })) { //DOESN'T EXIST YET -> CREATING
           //autoroles[interaction.guild.id] = [];
           autoroles.insertOne({ guildid: interaction.guild.id, autoroles: [] });
         }
         //EXISTS YET -> FILTERING/UPDATING
         let foundObj = await autoroles.findOne({ guildid: interaction.guild.id });
-        autoroles.updateOne({ guildid: interaction.guild.id }, { $set: { autoroles: foundObj.autoroles.filter(e => e != rolenameid.id) } });
+        autoroles.updateOne({ guildid: interaction.guild.id }, { $set: { autoroles: foundObj.autoroles.filter(e => e !== rolenameid.id) } });
 
         /*autoroles[interaction.guild.id] = 
           autoroles[interaction.guild.id].filter(e => e !== rolenameid.id);

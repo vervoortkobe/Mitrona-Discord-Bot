@@ -3,7 +3,7 @@ DISCORD_OAUTH2_REDIRECTURI_LOCAL auth.js
 
 PORT
 
-- mongodb: giveaways ready.js
+- mongodb - finished gcancel.js
 - websockets
 - help cmd
 - options.getMember("x");

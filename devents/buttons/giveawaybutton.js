@@ -4,12 +4,13 @@ module.exports.run = async (client, interaction, db) => {
   
     let giveaways = await db.collection("giveaways").find().toArray();
 
-    giveaways.forEach(async ga => {
+    let ga = await giveaways.findOne({ guild: interaction.guild.id, channel: interaction.channel.id, giveawaymsg: interaction.message.id });
+    //giveaways.forEach(async ga => {
       if(ga.guild === interaction.guild.id && ga.channel === interaction.channel.id && ga.giveawaymsg === interaction.message.id) {
         if(!ga.participants.includes(interaction.member.id)) {
 
-          ga.participants = 
-            ga.participants.concat(interaction.member.id);
+          /*ga.participants = 
+            ga.participants.concat(interaction.member.id);*/
 
           let randomcolors = Math.floor(Math.random() * 0xFFFFFF).toString(16);
           let color = `#${randomcolors}`;
@@ -65,7 +66,7 @@ module.exports.run = async (client, interaction, db) => {
             if(err) console.log(err);
           });*/
 
-          await coll.insertOne(ga);
+          autoroles.updateOne({ guild: interaction.guild.id, channel: interaction.channel.id, giveawaymsg: interaction.message.id }, { $push: { participants: interaction.member.id } });
 
           const giveawayConfirmationReplyEmbed = new Discord.EmbedBuilder()
           .setColor(0x00ff00)
@@ -76,8 +77,8 @@ module.exports.run = async (client, interaction, db) => {
         
         } else {
 
-          ga.participants = 
-            ga.participants.filter(e => e !== interaction.member.id);
+          /*ga.participants = 
+            ga.participants.filter(e => e !== interaction.member.id);*/
 
           let giveawayGuild = client.guilds.cache.get(ga.guild);
           let giveawayChannel = giveawayGuild.channels.cache.get(ga.channel);
@@ -107,7 +108,8 @@ module.exports.run = async (client, interaction, db) => {
             if(err) console.log(err);
           });*/
 
-          await coll.insertOne(ga);
+          let foundObj = await autoroles.findOne({ guild: interaction.guild.id, channel: interaction.channel.id, giveawaymsg: interaction.message.id });
+          autoroles.updateOne({ guild: interaction.guild.id, channel: interaction.channel.id, giveawaymsg: interaction.message.id }, { $set: { participants: foundObj.participants.filter(e => e !== interaction.member.id) } });
 
           const giveawayDenyReplyEmbed = new Discord.EmbedBuilder()
           .setColor(0xff0000)
@@ -117,7 +119,7 @@ module.exports.run = async (client, interaction, db) => {
           interaction.reply({ embeds: [ giveawayDenyReplyEmbed ], ephemeral: true });
         }
       }
-    });
+    //});
   }
 
   module.exports.help = {
