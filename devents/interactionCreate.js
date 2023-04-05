@@ -1,9 +1,9 @@
-module.exports.run = async (client, interaction, mongoClient) => {
+module.exports.run = async (client, interaction, db) => {
 
     if(interaction.isButton()) {
       if(interaction.customId == "giveawaybutton" && interaction.message.author.id === client.user.id) {
         let buttonfile = require("./buttons/giveawaybutton.js");
-        if(buttonfile) buttonfile.run(client, interaction, mongoClient);
+        if(buttonfile) buttonfile.run(client, interaction, db);
       }
     }
     

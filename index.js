@@ -2,6 +2,8 @@ const fs = require("fs");
 require("dotenv").config();
 const { MongoClient } = require("mongodb");
 const mongoClient = new MongoClient(process.env.MONGODB);
+const db = mongoClient.db("Mitrona");
+console.log("\x1b[36m", `» Connected to MongoDB!`);
 
 ///////////////////////////////////////////////////////////////////////////////////
 //DISCORD CLIENT INITIALISATION
@@ -121,25 +123,25 @@ if(introutefile) introutefile.run(client);
 //READY
 client.on("ready", async () => {
   let deventfile = client.devents.get("ready");
-  if(deventfile) deventfile.run(client, mongoClient);
+  if(deventfile) deventfile.run(client, db);
 });
 
 //GUILD_MEMBER_ADD
 client.on("guildMemberAdd", member => {
   let deventfile = client.devents.get("guildMemberAdd");
-  if(deventfile) deventfile.run(client, member, mongoClient);
+  if(deventfile) deventfile.run(client, member, db);
 });
 
 //INTERACTION_CREATE
 client.on("interactionCreate", async interaction => {
   let deventfile = client.devents.get("interactionCreate");
-  if(deventfile) deventfile.run(client, interaction, mongoClient);
+  if(deventfile) deventfile.run(client, interaction, db);
 });
 
 //MESSAGE_CREATE
 client.on("messageCreate", async message => {
   let deventfile = client.devents.get("messageCreate");
-  if(deventfile) deventfile.run(client, message, mongoClient);
+  if(deventfile) deventfile.run(client, message, db);
 });
 
 //client.on("debug", e => console.log(e));

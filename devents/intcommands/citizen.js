@@ -1,6 +1,6 @@
 const Discord = require("discord.js");
 
-module.exports.run = async (client, interaction, mongoClient) => {
+module.exports.run = async (client, interaction, db) => {
 
     let serveradminrole = interaction.guild.roles.cache.find(r => r.id === process.env.MITRONA_SERVERADMIN_ROLE);
     if(!serveradminrole) {

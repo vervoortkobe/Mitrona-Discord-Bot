@@ -1,6 +1,6 @@
 const Discord = require("discord.js");
 
-module.exports.run = async (req, res, client, cmdpath, mongoClient) => {
+module.exports.run = async (req, res, client, cmdpath, db) => {
 
   const home_head = fs.readFileSync("./html/home_head.html");
   let perms = JSON.parse(fs.readFileSync("./perms.json", "utf-8"));

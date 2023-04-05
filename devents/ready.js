@@ -1,7 +1,7 @@
 const Discord = require("discord.js");
 const fs = require("fs");
 
-module.exports.run = async (client, mongoClient) => {
+module.exports.run = async (client, db) => {
 
     function commandsReady() {
       fs.readdir("./devents/commands/", (err, files) => {
@@ -20,7 +20,7 @@ module.exports.run = async (client, mongoClient) => {
       });
     }
 
-    require("../server.js").server(client, mongoClient);
+    require("../server.js").server(client, db);
 
     function eventsReady() {
       fs.readdir("./devents/", (err, files) => {

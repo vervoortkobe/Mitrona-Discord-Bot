@@ -1,6 +1,6 @@
 const Discord = require("discord.js");
 
-module.exports.run = async (client, interaction, mongoClient) => {
+module.exports.run = async (client, interaction, db) => {
   
     const dashboardUrlButton = new Discord.ActionRowBuilder()
     .addComponents(

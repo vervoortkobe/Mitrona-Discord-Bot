@@ -9,7 +9,7 @@ async function getJSONRes(body) {
 	return JSON.parse(fullBody);
 }
 
-module.exports.run = async (req, res, mongoClient) => {
+module.exports.run = async (req, res, db) => {
   
 	if(req.session.loggedin) {
 		return res.send(`<script>setTimeout(() => { window.location.href = "/home" }, 3000);</script>

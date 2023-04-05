@@ -1,6 +1,6 @@
 const Discord = require("discord.js");
 
-module.exports.run = async (client, interaction, mongoClient) => {
+module.exports.run = async (client, interaction, db) => {
     
     const mEmbed = new Discord.EmbedBuilder()
     .setColor(0x03a9f4)

@@ -1,4 +1,4 @@
-module.exports.run = async (client, member, mongoClient) => {
+module.exports.run = async (client, member, db) => {
 //AUTOROLE
     let autoroles = JSON.parse(fs.readFileSync("./autoroles.json", "utf-8"));
     if(autoroles[member.guild.id]) {

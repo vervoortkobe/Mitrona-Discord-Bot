@@ -1,4 +1,4 @@
-module.exports.run = async (req, res, mongoClient) => {
+module.exports.run = async (req, res, db) => {
   
 	if(req.session.loggedin) {
 
