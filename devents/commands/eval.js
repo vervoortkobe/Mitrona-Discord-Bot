@@ -35,13 +35,14 @@ module.exports.run = async (client, message, args, db) => {
 
       try {
         const code = args.slice(0).join(" ");
-        let evaled = eval(code);
+        let evaled = await eval(code);
 
-        if (typeof evaled !== "string") evaled = await require("util").inspect(evaled);
+        if (typeof evaled !== "string") evaled = require("util").inspect(evaled);
 
-        return message.channel.send(clean(evaled), { code: "xl" });
+        return;
+        //return message.channel.send({ content: `\`\`\`xl\n${clean(evaled)}\n\`\`\`` });
       } catch(err) {
-        return message.channel.send(`\`ERROR\` \`\`\`xl\n${clean(err)}\n\`\`\``);
+        return message.channel.send({ content: `\`ERROR\` \`\`\`xl\n${clean(err)}\n\`\`\`` });
       }
       
     } else {

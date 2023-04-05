@@ -1,4 +1,4 @@
-module.exports.run = async (req, res, client, db) => {
+module.exports.run = async (req, res, client, fs, db) => {
 
   const home_head = fs.readFileSync("./html/home_head.html");
   

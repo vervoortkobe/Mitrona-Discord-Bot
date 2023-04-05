@@ -56,7 +56,7 @@ function server(client, db) {
     //ip logging
     //console.log(req.clientIp);
     let eventfile = require("./events/get/home.js");
-    if(eventfile) eventfile.run(req, res, client, db);
+    if(eventfile) eventfile.run(req, res, client, fs, db);
   });
 
   app.get("/api/", (req, res) => {
