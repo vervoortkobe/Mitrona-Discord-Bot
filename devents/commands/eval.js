@@ -37,7 +37,7 @@ module.exports.run = async (client, message, args, db) => {
         const code = args.slice(0).join(" ");
         let evaled = eval(code);
 
-        if (typeof evaled !== "string") evaled = require("util").inspect(evaled);
+        if (typeof evaled !== "string") evaled = await require("util").inspect(evaled);
 
         return message.channel.send(clean(evaled), { code: "xl" });
       } catch(err) {

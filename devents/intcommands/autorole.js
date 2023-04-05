@@ -29,15 +29,14 @@ module.exports.run = async (client, interaction, db) => {
         }
       }
 
-      let fetchedautoroles = await db.collection("autoroles").find().toArray()[0];
-      let autoroles = fetchedautoroles[0];
+      let autoroles = await db.collection("autoroles");//.find().toArray();
         
       let text = "";
-      if(!autoroles[interaction.guild.id]) {
+      if(!autoroles.findOne({ guildid: interaction.guild.id })) {
         text = `> ❌ \`Not configured yet\``;
       } else {
-        autoroles[interaction.guild.id].forEach(ar => {
-          text += `> ✅ <@&${ar}>\n`;
+        autoroles.findOne({ guildid: interaction.guild.id }).forEach(ar => {
+          text += `> ✅ <@&${ar.guildid}>\n`;
         });
       }
 
@@ -66,18 +65,21 @@ module.exports.run = async (client, interaction, db) => {
           return interaction.reply({ embeds: [ autoroleRemoveErrorReplyEmbed ], ephemeral: true });
         }
 
-        if(!autoroles[interaction.guild.id]) {
-          autoroles[interaction.guild.id] = [];
+        if(!autoroles.findOne({ guildid: interaction.guild.id })) { //DOESN'T EXIST YET -> CREATING
+          //autoroles[interaction.guild.id] = [];
+          autoroles.insertOne({ guildid: interaction.guild.id, autoroles: [] });
         }
+        //EXISTS YET -> PUSHING/UPDATING
+        autoroles.updateOne({ guildid: interaction.guild.id }, { $push: { autoroles: rolenameid.id } });
 
-        autoroles[interaction.guild.id] = 
+        /*autoroles[interaction.guild.id] = 
           autoroles[interaction.guild.id].push(rolenameid.id);
 
         fs.writeFile("./autoroles.json", JSON.stringify(autoroles), (err) => {
           if(err) console.log(err);
         });
 
-        delete require.cache[require.resolve("../autoroles.json")];
+        delete require.cache[require.resolve("../autoroles.json")];*/
 
         const autoroleAddEmbed = new Discord.EmbedBuilder()
         .setColor(0x00ff00)
@@ -95,18 +97,23 @@ module.exports.run = async (client, interaction, db) => {
           return interaction.reply({ embeds: [ autoroleRemoveErrorReplyEmbed ], ephemeral: true });
         }
 
-        if(!autoroles[interaction.guild.id]) {
-          autoroles[interaction.guild.id] = [];
+        if(!autoroles.findOne({ guildid: interaction.guild.id })) { //DOESN'T EXIST YET -> CREATING
+          //autoroles[interaction.guild.id] = [];
+          autoroles.insertOne({ guildid: interaction.guild.id, autoroles: [] });
         }
+        //EXISTS YET -> FILTERING/UPDATING
+        let foundObj = await autoroles.findOne({ guildid: interaction.guild.id });
+        autoroles.updateOne({ guildid: interaction.guild.id }, { $set: { autoroles: foundObj.autoroles.filter(e => e != rolenameid.id) } });
 
-        autoroles[interaction.guild.id] = 
+        /*autoroles[interaction.guild.id] = 
           autoroles[interaction.guild.id].filter(e => e !== rolenameid.id);
 
         fs.writeFile("./autoroles.json", JSON.stringify(autoroles), (err) => {
           if(err) console.log(err);
         });
 
-        delete require.cache[require.resolve("../autoroles.json")];
+        delete require.cache[require.resolve("../autoroles.json")];*/
+
         const autoroleRemoveEmbed = new Discord.EmbedBuilder()
         .setColor(0x00ff00)
         .setTitle("⚙️ AUTOROLE")
