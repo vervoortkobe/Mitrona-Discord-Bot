@@ -56,7 +56,7 @@ function server(client, db) {
     //ip logging
     //console.log(req.clientIp);
     let eventfile = require("./events/get/home.js");
-    if(eventfile) eventfile.run(req, res, client, fs, db);
+    if(eventfile) eventfile.run(req, res, client, db);
   });
 
   app.get("/api/", (req, res) => {
@@ -82,7 +82,7 @@ function server(client, db) {
 
   app.get("/ping", (req, res) => {
     let eventfile = require("./events/get/ping.js");
-    if(eventfile) eventfile.run(req, res, fs);
+    if(eventfile) eventfile.run(req, res);
   });
 
   //STYLE.CSS
@@ -181,12 +181,12 @@ function server(client, db) {
 
   //ACTIONS
   app.post("/add", (req, res) => {
-    let eventfile = require("./events/post/add.js", db);
-    if(eventfile) eventfile.run(req, res, fs);
+    let eventfile = require("./events/post/add.js");
+    if(eventfile) eventfile.run(req, res, db);
   });
   app.post("/remove", (req, res) => {
-    let eventfile = require("./events/post/remove.js", db);
-    if(eventfile) eventfile.run(req, res, fs);
+    let eventfile = require("./events/post/remove.js");
+    if(eventfile) eventfile.run(req, res, db);
   });
 
   //ROOT ROUTE

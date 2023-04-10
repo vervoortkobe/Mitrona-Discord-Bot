@@ -1,4 +1,6 @@
-module.exports.run = async (req, res, client, fs, db) => {
+const fs = require("fs");
+
+module.exports.run = async (req, res, client, db) => {
   
   let fetchedperms = await db.collection("perms").find().toArray();
   let perms = fetchedperms[0];

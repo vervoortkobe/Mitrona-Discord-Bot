@@ -16,7 +16,7 @@ async function run() {
         '1051606707496812604',
         '1051819048813477950'
       ]});*/
-      let autoroles = await db.collection("autoroles");
+      //let autoroles = await db.collection("autoroles");
 
       //autoroles.updateOne({ guildid: "1050764959384080416" }, { $push: { autoroles: "test" } });
 
@@ -25,8 +25,10 @@ async function run() {
       autoroles.updateOne({ guildid: "1050764959384080416" }, { $set: { autoroles: a.autoroles.filter(e => e != "test") } });
       console.log(await autoroles.find().toArray());*/
 
-      let giveaways = await db.collection("giveaways").find().toArray();
-      giveaways.forEach(ga => console.log(ga));
+      /*let giveaways = await db.collection("giveaways").find().toArray();
+      giveaways.forEach(ga => console.log(ga));*/
+
+      await db.collection("perms").updateOne({ }, { $push: { announce: "x" } });
 
     mongoClient.close();
 }

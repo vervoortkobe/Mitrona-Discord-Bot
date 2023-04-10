@@ -51,7 +51,7 @@ module.exports.run = async (client, interaction, db) => {
       .then(msgs => {
         let msgstooold = 0;
         msgs.forEach(m => {
-          if(m.createdTimestamp + 1209600 <= Date.now()) msgstooold++;
+          if(m.createdTimestamp + 1209600000 <= Date.now()) msgstooold++;
         });
         if(msgstooold >= 1) {
           const purgeErrorEmbed = new Discord.EmbedBuilder()
