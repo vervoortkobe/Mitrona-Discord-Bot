@@ -45,10 +45,11 @@ module.exports.run = async (client, db) => {
     client.user.setActivity(`${process.env.ACTIVITY}`, { type: Discord.ActivityType.Watching });
 
 //GIVEAWAYS
-    setInterval(() => {
-      let giveaways = JSON.parse(fs.readFileSync("./giveaways.json", "utf-8"));
-      
-      giveaways.forEach(ga => {
+    setInterval(async () => {
+      let giveaways = await db.collection("giveaways");
+      let gas = giveaways.find().toArray();
+
+      gas.forEach(ga => {
         if(ga.busy === true) {
           if(ga.time <= Date.now()) {
             if(client.guilds.cache.get(ga.guild)) {
@@ -78,7 +79,7 @@ module.exports.run = async (client, db) => {
                   .setDisabled(true)
                 );
 
-                ga.busy = 
+                /*ga.busy = 
                   Boolean(false);
 
                 console.log(ga);
@@ -86,7 +87,9 @@ module.exports.run = async (client, db) => {
 
                 fs.writeFile("./giveaways.json", JSON.stringify(giveaways), (err) => {
                   if(err) console.log(err);
-                });
+                });*/
+                
+                giveaways.updateOne({ giveawaymsg: ga.giveawaymsg }, { $set: { busy: Boolean(false) } });
 
                 console.log(ga.participants.length);
                 
