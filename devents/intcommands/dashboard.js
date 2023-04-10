@@ -16,7 +16,7 @@ module.exports.run = async (client, interaction, db) => {
       );
 
       const dashboardEmbed = new Discord.EmbedBuilder()
-      .setColor(0x016701)
+      .setColor(process.env.COLOR)
       .setTitle("🌐 DASHBOARD")
       .setDescription(`✅ **|** ***Here you can visit the*** **[${client.user.username} Dashboard](https://mitrona.tsunami2360.repl.co/)** ***!***`)
       interaction.reply({ embeds: [ dashboardEmbed ], components: [ dashboardUrlButton ], ephemeral: true });

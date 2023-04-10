@@ -6,7 +6,7 @@ module.exports.run = async (client, interaction, db) => {
     let perms = fetchedperms[0];
     
     const helpEmbed = new Discord.EmbedBuilder()
-    .setColor(0x016701)
+    .setColor(process.env.COLOR)
     .setTitle(`🤖 | HELP`)
     .setThumbnail(client.user.displayAvatarURL())
     .setDescription(`***• Here are ${client.user.username}'s commands:***`)

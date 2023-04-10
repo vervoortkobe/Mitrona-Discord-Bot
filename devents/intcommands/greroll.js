@@ -13,7 +13,7 @@ module.exports.run = async (client, interaction, db) => {
       return interaction.reply({ embeds: [ serveradminErrorReplyEmbed ], ephemeral: true });
     }
 
-    if(perms.admin.includes(interaction.member.id) || interaction.member.permissions.has(Discord.PermissionsBitField.Flags.Administrator) || interaction.member.roles.cache.has(serveradminrole) || perms.greroll.includes(interaction.member.id)) {
+    if(perms.admin.includes(interaction.member.id) || interaction.member.permissions.has(Discord.PermissionsBitField.Flags.Administrator) || interaction.member.roles.cache.has(serveradminrole) || require("../../checkperms.js").checkPerms(interaction, "greroll")) {
 
       if(!interaction.options.get("giveaway") || !interaction.options.get("giveaway").value) {
         const grerollGiveawayErrorReplyEmbed = new Discord.EmbedBuilder()

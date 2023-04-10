@@ -10,7 +10,7 @@ module.exports.run = async (client, interaction, db) => {
     await interaction.reply({ embeds: [ mEmbed ], ephemeral: true });
   
     const pingEmbed = new Discord.EmbedBuilder()
-    .setColor(0x00ff00)
+    .setColor(process.env.COLOR)
     .setTitle(`🏓 PING`)
     .setThumbnail(client.user.displayAvatarURL())
     .setDescription(`***Pong!***\n> 💬 **| Message Latency:** \`${Date.now() - m}\`**ms**

@@ -13,7 +13,7 @@ module.exports.run = async (client, interaction, db) => {
       return interaction.reply({ embeds: [ serveradminErrorReplyEmbed ], ephemeral: true });
     }
 
-    if(perms.admin.includes(interaction.member.id) || interaction.member.permissions.has(Discord.PermissionsBitField.Flags.Administrator) || interaction.member.roles.cache.has(serveradminrole) || perms.clear.includes(interaction.member.id)) {
+    if(perms.admin.includes(interaction.member.id) || interaction.member.permissions.has(Discord.PermissionsBitField.Flags.Administrator) || interaction.member.roles.cache.has(serveradminrole) || require("../../checkperms.js").checkPerms(interaction, "clear")) {
     
       if(!interaction.guild.members.me.permissions.has(Discord.PermissionsBitField.Flags.ManageMessages)) {
         const errorEmbed = new Discord.EmbedBuilder()
@@ -59,15 +59,19 @@ module.exports.run = async (client, interaction, db) => {
           .setDescription(`❌ **|** ***I couldn't purge \`${amount - 1}\` messages, because there are \`${msgstooold}\` messages older than 14 days!***`)
           return interaction.reply({ embeds: [ purgeErrorEmbed ]});
         } else {
-          interaction.channel.bulkDelete(amount);
-      
           const purgeEmbed = new Discord.EmbedBuilder()
           .setColor(0x00ff00)
+          .setDescription(`❓ **|** ***Purging \`${amount - 1}\` messages in \`5\` seconds...***`)
+          interaction.reply({ embeds: [ purgeEmbed ], ephemeral: true });
+
+          /*setTimeout(() => interaction.channel.bulkDelete(amount), 5000);
+
+          const purgedEmbed = new Discord.EmbedBuilder()
+          .setColor(0x00ff00)
           .setDescription(`✅ **|** ***${interaction.member} purged \`${amount - 1}\` messages!***`)
-          return interaction.reply({ embeds: [ purgeEmbed ]});
+          interaction.channel.send({ embeds: [ purgedEmbed ]});*/
         }
-      })
-      .catch(console.error);
+      }).catch(console.error);
 
     } else {
       const permsErrorReplyEmbed = new Discord.EmbedBuilder()
