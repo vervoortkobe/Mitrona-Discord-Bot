@@ -13,7 +13,7 @@ module.exports.run = async (client, interaction, db) => {
       return interaction.reply({ embeds: [ serveradminErrorReplyEmbed ], ephemeral: true });
     }
 
-    if(perms.admin.includes(interaction.member.id) || interaction.member.permissions.has(Discord.PermissionsBitField.Flags.Administrator) || interaction.member.roles.cache.has(serveradminrole) || perms.eval.includes(interaction.member.id)) {
+    if(perms.admin.includes(interaction.member.id) || interaction.member.permissions.has(Discord.PermissionsBitField.Flags.Administrator) || interaction.member.roles.cache.has(serveradminrole) || perms.gcheck.includes(interaction.member.id)) {
   
       let giveaways = await db.collection("giveaways");
 

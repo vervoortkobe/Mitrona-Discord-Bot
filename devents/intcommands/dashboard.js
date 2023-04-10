@@ -5,7 +5,7 @@ module.exports.run = async (client, interaction, db) => {
     let fetchedperms = await db.collection("perms").find().toArray();
     let perms = fetchedperms[0];
   
-    if(perms.admin.includes(interaction.member.id) || interaction.member.permissions.has(Discord.PermissionsBitField.Flags.Administrator) || interaction.member.roles.cache.has(serveradminrole) || perms.eval.includes(interaction.member.id)) {
+    if(perms.admin.includes(interaction.member.id) || interaction.member.permissions.has(Discord.PermissionsBitField.Flags.Administrator) || interaction.member.roles.cache.has(serveradminrole)) {
 
       const dashboardUrlButton = new Discord.ActionRowBuilder()
       .addComponents(
