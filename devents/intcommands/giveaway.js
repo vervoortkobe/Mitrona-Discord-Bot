@@ -57,8 +57,8 @@ module.exports.run = async (client, interaction, db) => {
         .setDescription(`❌ **|** ***Error: I couldn't start a giveaway, because the amount of winners has to be a number between \`1\` and \`10\`!***`)
         return interaction.reply({ embeds: [ giveawayWinnersOutofrangeErrorReplyEmbed ], ephemeral: true });
       }
-
-      let giveaways = JSON.parse(fs.readFileSync("./giveaways.json", "utf-8"));
+  
+      let giveaways = await db.collection("giveaways");
 
       let randomcolors = Math.floor(Math.random() * 0xFFFFFF).toString(16);
       let color = `#${randomcolors}`;
@@ -102,12 +102,15 @@ module.exports.run = async (client, interaction, db) => {
           busy: Boolean(true)
         };
 
-        giveaways = 
+        /*giveaways = 
           giveaways.concat(gaArray);
 
         fs.writeFile("./giveaways.json", JSON.stringify(giveaways), (err) => {
           if(err) console.log(err);
-        });
+        });*/
+
+        giveaways.insertOne({ gaArray });
+
         console.log(giveaways);
       });
 

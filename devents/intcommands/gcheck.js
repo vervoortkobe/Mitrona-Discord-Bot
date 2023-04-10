@@ -14,14 +14,16 @@ module.exports.run = async (client, interaction, db) => {
     }
 
     if(perms.admin.includes(interaction.member.id) || interaction.member.permissions.has(Discord.PermissionsBitField.Flags.Administrator) || interaction.member.roles.cache.has(serveradminrole) || perms.eval.includes(interaction.member.id)) {
-
-      let giveaways = JSON.parse(fs.readFileSync("./giveaways.json", "utf-8"));
+  
+      let giveaways = await db.collection("giveaways");
 
       let text = "";
-      if(!giveaways || giveaways.length === 0) {
+      if(!await giveaways.find().toArray() || await giveaways.find().toArray().length === 0 || !await giveaways.findOne({ guild: interaction.guild.id })) {
         text = `> ❌ \`None\``;
       } else {
-        giveaways.forEach(ga => {
+
+        //giveaways.forEach(ga => {
+        await giveaways.find({ guild: interaction.guild.id }).forEach(ga => {
           if(ga.guild === interaction.guild.id) {
             //console.log(ga);
 

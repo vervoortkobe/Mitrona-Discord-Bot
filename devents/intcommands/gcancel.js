@@ -24,7 +24,7 @@ module.exports.run = async (client, interaction, db) => {
   
       let giveaways = await db.collection("giveaways");
 
-      let ga = await giveaways.findOne({ giveawaymsg: interaction.options.get("giveaway").value })
+      let ga = await giveaways.findOne({ giveawaymsg: interaction.options.get("giveaway").value });
       //giveaways.forEach(ga => {
         if(ga.giveawaymsg === interaction.options.get("giveaway").value) {
           if(ga.busy === true && ga.time > Date.now()) {
@@ -64,8 +64,7 @@ module.exports.run = async (client, interaction, db) => {
                 fs.writeFile("./giveaways.json", JSON.stringify(giveaways), (err) => {
                   if(err) console.log(err);
                 });*/
-
-                let foundObj = await giveaways.findOne({ guildid: interaction.options.get("giveaway").value });
+                
                 giveaways.updateOne({ giveawaymsg: interaction.options.get("giveaway").value }, { $set: { busy: Boolean(false) } });
 
                 console.log(ga.participants.length);
