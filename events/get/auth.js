@@ -10,6 +10,9 @@ async function getJSONRes(body) {
 }
 
 module.exports.run = async (req, res, db) => {
+	
+	let fetchedperms = await db.collection("perms").find().toArray();
+	let perms = fetchedperms[0];
   
 	if(req.session.loggedin) {
 		return res.send(`<script>setTimeout(() => { window.location.href = "/home" }, 3000);</script>

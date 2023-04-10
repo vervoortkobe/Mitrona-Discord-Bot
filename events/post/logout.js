@@ -1,5 +1,8 @@
 module.exports.run = async (req, res) => {
   
+  let fetchedperms = await db.collection("perms").find().toArray();
+  let perms = fetchedperms[0];
+  
 	if(req.session.loggedin) {
 
     var user = req.session.username;
