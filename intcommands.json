@@ -146,6 +146,10 @@
     ]
   },
   {
+    "name": "help",
+    "description": "Returns an overview of the bot's commands"
+  },
+  {
     "name": "ping",
     "description": "Calculates the bot's message latency and the Discord API heartbeat's ping"
   },

@@ -6,7 +6,7 @@ module.exports.run = async (client, message, db) => {
     let prefix = process.env.PREFIX;
     if(message.mentions.has(client.user)) {
       let commandfile = require("./intcommands/help.js");
-      if(commandfile) eventfile.run(client, message, args, db);
+      if(commandfile) eventfile.run(client, message, db);
     }
     
     if(!message.content.toLowerCase().startsWith(prefix)) return;

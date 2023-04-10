@@ -3,8 +3,4 @@ DISCORD_OAUTH2_REDIRECTURI_LOCAL auth.js
 
 PORT
 
-- mongodb - finished gcancel.js
-x websockets (private api)
 - help cmd
-- options.getMember("x");
-x csrf token

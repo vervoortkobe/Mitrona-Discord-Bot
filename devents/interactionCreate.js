@@ -16,7 +16,7 @@ module.exports.run = async (client, interaction, db) => {
     const { commandName, options } = interaction;
 
     let intcommandfile = client.intcommands.get(commandName);
-    if(intcommandfile) intcommandfile.run(client, interaction);
+    if(intcommandfile) intcommandfile.run(client, interaction, db);
   }
 
   module.exports.help = {

@@ -33,7 +33,7 @@ function server(client, db) {
     
     jsfile.forEach((f, i) => {
       let props = require(`./events/get/${f}`);
-      console.log("\x1b[0m", `• /events/get/${f} was loaded!`);
+      console.log("\x1b[0m", `• events/get/${f} was loaded!`);
     });
   });
 
@@ -48,7 +48,7 @@ function server(client, db) {
     
     jsfile.forEach((f, i) => {
       let props = require(`./events/post/${f}`);
-      console.log("\x1b[0m", `• /events/post/${f} was loaded!`);
+      console.log("\x1b[0m", `• events/post/${f} was loaded!`);
     });
   });
 

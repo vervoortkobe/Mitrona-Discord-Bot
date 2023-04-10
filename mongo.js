@@ -1,5 +1,4 @@
 require("dotenv").config();
-const { GuildScheduledEventPrivacyLevel } = require("discord.js");
 const { MongoClient } = require("mongodb");
 
 const mongoClient = new MongoClient(process.env.MONGODB);
