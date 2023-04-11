@@ -35,7 +35,7 @@ module.exports.run = async (client, message, args, db) => {
 
       try {
         const code = args.slice(0).join(" ");
-        let evaled = await eval(code);
+        let evaled = eval(code);
 
         if (typeof evaled !== "string") evaled = require("util").inspect(evaled);
 
