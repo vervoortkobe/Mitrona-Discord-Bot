@@ -4,3 +4,4 @@ DISCORD_OAUTH2_REDIRECTURI_LOCAL auth.js
 PORT
 
 - giveaways on dash
+- .toString().replaceAll("%AUTHOR%", client.user.username)
