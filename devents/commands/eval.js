@@ -39,8 +39,7 @@ module.exports.run = async (client, message, args, db) => {
 
         if (typeof evaled !== "string") evaled = require("util").inspect(evaled);
 
-        return;
-        //return message.channel.send({ content: `\`\`\`xl\n${clean(evaled)}\n\`\`\`` });
+        return message.channel.send({ content: `\`\`\`xl\n${clean(evaled)}\n\`\`\`` });
       } catch(err) {
         return message.channel.send({ content: `\`ERROR\` \`\`\`xl\n${clean(err)}\n\`\`\`` });
       }
