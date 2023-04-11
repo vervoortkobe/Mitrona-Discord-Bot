@@ -26,5 +26,5 @@ module.exports.run = async (client, interaction, db) => {
   module.exports.help = {
     name: "dashboard",
     aliases: [],
-    category: ""
+    category: "admin"
 }

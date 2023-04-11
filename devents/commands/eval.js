@@ -56,5 +56,5 @@ module.exports.run = async (client, message, args, db) => {
   module.exports.help = {
     name: "eval",
     aliases: ["evaluate"],
-    category: "owner"
+    category: "advanced"
 }

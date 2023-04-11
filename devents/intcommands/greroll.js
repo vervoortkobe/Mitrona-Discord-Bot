@@ -144,5 +144,5 @@ module.exports.run = async (client, interaction, db) => {
   module.exports.help = {
     name: "greroll",
     aliases: [],
-    category: ""
+    category: "admin"
 }

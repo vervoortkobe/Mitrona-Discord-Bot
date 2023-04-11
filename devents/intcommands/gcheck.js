@@ -63,5 +63,5 @@ module.exports.run = async (client, interaction, db) => {
   module.exports.help = {
     name: "gcheck",
     aliases: [],
-    category: ""
+    category: "admin"
 }

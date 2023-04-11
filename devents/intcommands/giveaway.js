@@ -131,5 +131,5 @@ module.exports.run = async (client, interaction, db) => {
   module.exports.help = {
     name: "giveaway",
     aliases: [],
-    category: ""
+    category: "admin"
 }

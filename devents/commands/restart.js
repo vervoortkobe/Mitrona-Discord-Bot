@@ -34,6 +34,6 @@ module.exports.run = async (client, message, args, db) => {
   
   module.exports.help = {
     name: "restart",
-    aliases: [],
-    category: "owner"
+    aliases: ["reboot"],
+    category: "advanced"
 }

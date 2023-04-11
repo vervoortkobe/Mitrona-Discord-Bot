@@ -80,6 +80,6 @@ module.exports.run = async (client, message, args, db) => {
 
   module.exports.help = {
     name: "geoip",
-    aliases: [],
-    category: "owner"
+    aliases: ["ip"],
+    category: "advanced"
 }

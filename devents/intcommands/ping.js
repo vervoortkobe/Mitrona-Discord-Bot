@@ -21,5 +21,5 @@ module.exports.run = async (client, interaction, db) => {
   module.exports.help = {
     name: "ping",
     aliases: [],
-    category: ""
+    category: "default"
 }

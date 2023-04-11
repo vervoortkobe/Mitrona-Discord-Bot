@@ -48,7 +48,7 @@ module.exports.run = async (client, interaction, db) => {
       let amount = parseInt(amountmsgs) + 1;
 
       interaction.channel.messages.fetch({ limit: amount, cache: false })
-      .then(msgs => {
+      .then(async msgs => {
         let msgstooold = 0;
         msgs.forEach(m => {
           if(m.createdTimestamp + 1209600000 <= Date.now()) msgstooold++;
@@ -56,20 +56,24 @@ module.exports.run = async (client, interaction, db) => {
         if(msgstooold >= 1) {
           const purgeErrorEmbed = new Discord.EmbedBuilder()
           .setColor(0xff0000)
-          .setDescription(`❌ **|** ***I couldn't purge \`${amount - 1}\` messages, because there are \`${msgstooold}\` messages older than 14 days!***`)
-          return interaction.reply({ embeds: [ purgeErrorEmbed ]});
-        } else {
-          const purgeEmbed = new Discord.EmbedBuilder()
-          .setColor(0x00ff00)
-          .setDescription(`❓ **|** ***Purging \`${amount - 1}\` messages in \`5\` seconds...***`)
-          interaction.reply({ embeds: [ purgeEmbed ], ephemeral: true });
+          .setDescription(`❌ **|** ***I couldn't purge all \`${amount - 1}\` messages, because there are \`${msgstooold}\` messages older than 14 days!***`)
+          interaction.reply({ embeds: [ purgeErrorEmbed ]});
 
-          /*setTimeout(() => interaction.channel.bulkDelete(amount), 5000);
+          await interaction.channel.bulkDelete(amount - msgstooold);
+
+          const purgedEmbed = new Discord.EmbedBuilder()
+          .setColor(0x00ff00)
+          .setDescription(`✅ **|** ***${interaction.member} purged \`${amount - 1 - msgstooold}\` messages!***`)
+          await interaction.reply({ embeds: [ purgedEmbed ]});
+
+        } else {
+
+          await interaction.channel.bulkDelete(amount);
 
           const purgedEmbed = new Discord.EmbedBuilder()
           .setColor(0x00ff00)
           .setDescription(`✅ **|** ***${interaction.member} purged \`${amount - 1}\` messages!***`)
-          interaction.channel.send({ embeds: [ purgedEmbed ]});*/
+          await interaction.reply({ embeds: [ purgedEmbed ]});
         }
       }).catch(console.error);
 
@@ -83,6 +87,6 @@ module.exports.run = async (client, interaction, db) => {
 
   module.exports.help = {
     name: "clear",
-    aliases: [],
-    category: ""
+    aliases: ["purge"],
+    category: "admin"
 }

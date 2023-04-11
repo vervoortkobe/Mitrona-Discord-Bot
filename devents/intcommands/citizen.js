@@ -59,5 +59,5 @@ module.exports.run = async (client, interaction, db) => {
   module.exports.help = {
     name: "citizen",
     aliases: [],
-    category: ""
+    category: "admin"
 }
