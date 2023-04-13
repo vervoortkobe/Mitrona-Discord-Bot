@@ -65,7 +65,7 @@ module.exports.run = async (client, message, args, db) => {
         .setTitle(`🌐 | GeoIP`)
         .setDescription(`**» IP Address:** \`${data.query}\`\n**» Continent:** \`${data.continent}\`, \`${data.continentCode}\`\n**» Country:** \`${data.country}\`, \`${data.countryCode}\`\n**» Region:** \`${data.regionName}\`, \`${data.region}\`\n**» Nearest Capital City:** \`${data.city}\`\n**» Postal ZIP Code:** \`${zip}\`\n**» Latitude - Longitude:** \`${data.lat}\` - \`${data.lon}\`\n**» Timezone:** \`${data.timezone.replace("_", " ")}\`\n**» Currency:** \`${data.currency}\`\n**» ISP:** \`${data.isp}\`, \`${org}\`\n**» Mobile | Proxy | Hosting:** ${mobile} | ${proxy} | ${hosting}`)
         .setImage("attachment://map.png")
-        .setFooter({ iconURL: "https://scontent.fbru4-1.fna.fbcdn.net/v/t39.30808-6/301390569_521914773072568_8707224832733875953_n.png?_nc_cat=103&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=wQOccpeUA3kAX_w5p6c&_nc_ht=scontent.fbru4-1.fna&oh=00_AfD4rFbqWpRl1sByCC70XBuK2QF7wIad2WWCwUIN48NouQ&oe=642928C6", text: "Powered by Geoapify.com | Zoom: 6" })
+        .setFooter({ iconURL: "https://avatars.githubusercontent.com/u/60292923?v=4", text: "Powered by Geoapify.com | Zoom: 6" })
         message.channel.send({ embeds: [ geoipEmbed ], files: [ mapimg ]})
         .then(message.react("🌐"));
       });
