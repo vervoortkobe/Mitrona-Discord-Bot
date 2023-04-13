@@ -51,14 +51,14 @@ module.exports.run = async (client, message, args, db) => {
         else org = "❌";
 
         let mobile;
-        if(data.mobile === true) mobile = `✅ \`Yes\``;
-        if(data.mobile === false) mobile = `❌ \`No\``;
+        if(data.mobile === true) mobile = `\`✅\` \`Yes\``;
+        if(data.mobile === false) mobile = `\`❌\` \`No\``;
         let proxy;
-        if(data.proxy === true) proxy = `✅ \`Yes\``;
-        if(data.proxy === false) proxy = `❌ \`No\``;
+        if(data.proxy === true) proxy = `\`✅\` \`Yes\``;
+        if(data.proxy === false) proxy = `\`❌\` \`No\``;
         let hosting;
-        if(data.hosting === true) hosting = `✅ \`Yes\``;
-        if(data.hosting === false) hosting = `❌ \`No\``;
+        if(data.hosting === true) hosting = `\`✅\` \`Yes\``;
+        if(data.hosting === false) hosting = `\`❌\` \`No\``;
 
         const geoipEmbed = new Discord.EmbedBuilder()
         .setColor(0x03a9f4)
