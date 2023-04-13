@@ -1,9 +1,17 @@
 const fs = require("fs");
 require("dotenv").config();
-const { MongoClient } = require("mongodb");
-const mongoClient = new MongoClient(process.env.MONGODB);
-const db = mongoClient.db("Mitrona");
+const { MongoClient, ServerApiVersion } = require("mongodb");
+const mongoClient = new MongoClient(process.env.MONGODB, {
+  serverApi: {
+    version: ServerApiVersion.v1,
+    strict: true,
+    deprecationErrors: true,
+  }
+});
+mongoClient.connect();
+mongoClient.db("Mitrona").command({ ping: 1 });
 console.log("\x1b[36m", `» Connected to MongoDB!`);
+const db = mongoClient.db("Mitrona");
 
 ///////////////////////////////////////////////////////////////////////////////////
 //DISCORD CLIENT INITIALISATION
