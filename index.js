@@ -163,4 +163,8 @@ async function runDiscordClient(db) {
 
   //client.on("debug", e => console.log(e));
   client.login(process.env.TOKEN);
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> a2a5b5f0301460d70286dfce1e4eb1f746a2e454
