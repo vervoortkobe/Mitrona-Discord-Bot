@@ -3,7 +3,7 @@ const Discord = require("discord.js");
 module.exports.run = async (client, message, db) => {
 
     if(message.author.bot) return;
-    if(message.channel.type === "DM") return;
+    if(message.channel.type === "DM") return console.log(`| > @${message.author.tag}: ${message.content}`);
 
     let prefix = process.env.PREFIX;
     if(message.mentions.has(client.user)) return;

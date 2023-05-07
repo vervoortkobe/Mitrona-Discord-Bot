@@ -13,13 +13,14 @@ async function run() {
     await mongoClient.connect();
     await mongoClient.db("Mitrona").command({ ping: 1 });
     console.log("\x1b[36m", `» Connected to MongoDB!`);
-
-    runDiscordClient(await mongoClient.db("Mitrona"));
-  } finally {
+    const db = await mongoClient.db("Mitrona");
+    runDiscordClient(db);
+  } catch(err) {
     await mongoClient.close();
+    console.error(err);
   }
 }
-run().catch(console.dir);
+run();
 
 ///////////////////////////////////////////////////////////////////////////////////
 async function runDiscordClient(db) {

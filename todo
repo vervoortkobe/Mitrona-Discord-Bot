@@ -5,3 +5,5 @@ PORT
 
 - giveaways on dash
 - .toString().replaceAll("%AUTHOR%", client.user.username)
+
+❌ DB actions in 1 file module

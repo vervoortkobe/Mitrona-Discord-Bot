@@ -47,9 +47,10 @@ module.exports.run = async (client, db) => {
 //GIVEAWAYS
     setInterval(async () => {
       let giveaways = await db.collection("giveaways");
-      let gas = await giveaways.find().toArray();
+      giveaways = await giveaways.find().toArray();
+      console.log(giveaways);
 
-      gas.forEach(ga => {
+      giveaways.forEach(ga => {
         if(ga.busy === true) {
           if(ga.time <= Date.now()) {
             if(client.guilds.cache.get(ga.guild)) {

@@ -5,8 +5,6 @@ const session = require("express-session");
 const path = require("path");
 const requestIp = require("request-ip");
 
-process.env.PORT = 80;
-
 function server(client, db) {
 
   const app = express();
