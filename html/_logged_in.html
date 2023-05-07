@@ -1,0 +1,17 @@
+  <head>
+    <title>Mitrona &bull; Home</title>
+    <meta property="og:image" content="https://${req.hostname}/icons/logo.png">
+    <style>
+      .pagecontent { display: none; padding-top: 15%; }
+      .ip { padding-top: 42vh; }
+    </style>
+  </head>
+  <body>
+    <div id="pagecontent" class="pagecontent">
+      <center><br>
+        <p>Only Administrators are allowed to access this page!</p>
+        <br><br><br><div class="ip">Your public IP-address: ${req.clientIp}</div>
+      </center>
+    </div>
+  </body>
+</html>

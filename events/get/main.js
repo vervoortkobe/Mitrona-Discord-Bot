@@ -6,7 +6,8 @@ module.exports.run = async (req, res, client, cmdpath, db) => {
   let fetchedperms = await db.collection("perms").find().toArray();
   let perms = fetchedperms[0];
 
-  const home_head = fs.readFileSync("./html/home_head.html");
+  const head = fs.readFileSync("./html/_head.html");
+  const main = fs.readFileSync("./html/main.html");
   
 //LOGGED IN
   if(req.session.loggedin) {
@@ -123,57 +124,20 @@ module.exports.run = async (req, res, client, cmdpath, db) => {
 
         if(!cmdperms || cmdperms.length === 0 || !allowedroles || allowedroles.length === 0) allowedroles = "No roles have been configured for this command!";
     
-        return res.send(`
-          ${home_head}
-          <head>
-            <title>Mitrona &bull; Dashboard | ${cmdpath[0].toUpperCase() + cmdpath.slice(1)}</title>
-            <meta property="og:image" content="https://${req.hostname}/icons/logo.png">
-            <link rel="stylesheet" href="../style.css">
-            <script src="../script.js" defer></script>
-          </head>
-          <body>
-            <div id="pagecontent" class="pagecontent">
-
-              <div id="success" class="success">
-                <div id="successdiv" class="alert alert-dismissible alert-success">
-                  <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                  <b id="successtitle">ACTION</b><br><span id="successdesc">DESCRIPTION</span>
-                </div>
-              </div>
-
-              <center><br>
-                <a href="../" id="home" class="home"><img src="${client.user.displayAvatarURL()}" id="avatar" class="avatar"></a>
-                <ul class="details">
-                  <li><img src="${avatar.replace("?size=32", "?size=128")}" id="avatar" class="avatar"> <b>${user}</b></li>
-                  <li><form action="logout" method="POST">
-                    <input type="submit" value="Log out!" class="btn btn-outline-warning">
-                  </form></li>
-                </ul><br>
-                <h1 style="color: #3498db;">${cmdpath[0].toUpperCase() + cmdpath.slice(1)}</h1>
-                <h3>Permissions</h3>
-                <div class="perms">
-                  <p><b>The following members currently have access to this command.</b></p>
-                  ${puadminarr + "<br>" + puarr}
-                </div><br>
-                <h3>Configuration</h3>
-                <p class="addroledesc"><b>Add a role by looking it up.</b></p>
-              </center>
-              <div class="grid" id="grid">
-                <div class="config" id="config">
-                  <div id="searchdropdown" class="searchdropdown">
-                    <input type="search" id="searchbar" class="form-control me-sm-2 searchbar" onkeyup="lookup()" placeholder="Search for a role to add...">
-                    <ul id="roles" class="roles">
-                      ${roles}
-                    </ul>
-                  </div>
-                </div>
-                <ul id="allowedroles" class="allowedroles">
-                  ${allowedroles}
-                </ul>
-              </div>
-            </div>
-          </body>
-        </html>`);
+        return res.send(
+          head + 
+          main
+          .toString()
+          .replaceAll("${cmdpath[0].toUpperCase() + cmdpath.slice(1)}", cmdpath[0].toUpperCase() + cmdpath.slice(1))
+          .replaceAll("${req.hostname}", req.hostname)
+          .replaceAll("${client.user.displayAvatarURL()}", client.user.displayAvatarURL())
+          .replaceAll("${avatar.replace('?size=32', '?size=128')}", avatar.replace('?size=32', '?size=128'))
+          .replaceAll("${user}", user)
+          .replaceAll("${cmdpath[0].toUpperCase() + cmdpath.slice(1)}", cmdpath[0].toUpperCase() + cmdpath.slice(1))
+          .replaceAll('${puadminarr + "<br>" + puarr}', puadminarr + "<br>" + puarr)
+          .replaceAll("${roles}", roles)
+          .replaceAll("${allowedroles}", allowedroles)
+        );
   
       } else {
         //USER

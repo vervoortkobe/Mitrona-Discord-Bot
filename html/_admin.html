@@ -1,0 +1,55 @@
+  <head>
+    <title>Mitrona &bull; Dashboard</title>
+    <meta property="og:image" content="https://${req.hostname}/icons/logo.png">
+    <style>
+      h1 { font-weight: bold; }
+    </style>
+  </head>
+  <body>
+    <div id="pagecontent" class="pagecontent">
+      <center><br>
+        <p>Welcome back, <img src="${avatar}" id="avatar" class="avatar"> <b>${user}</b>!</p>
+        <p style="margin-top: -2vh;">Logged in!</p>
+        <ul class="details">
+          <li><img src="${avatar.replace('?size=32', '?size=128')}" id="avatar" class="avatar"> <b>${user}</b></li>
+          <li><form action="logout" method="POST">
+            <input type="submit" value="Log out!" class="btn btn-outline-warning">
+          </form></li>
+        </ul><br>
+        <h1 style="color: #3498db; margin-top: -6vh;">Compatible Commands</h1>
+        <div class="commands">
+          <a href="/announce">
+            <button id="announce" class="btn btn-outline-success">Announce</button>
+          </a><br>
+          <a href="/autorole">
+            <button id="autorole" class="btn btn-outline-success">Autorole</button>
+          </a><br>
+          <a href="/citizen">
+            <button id="citizen" class="btn btn-outline-success">Citizen</button>
+          </a><br>
+          <a href="/clear">
+            <button id="clear" class="btn btn-outline-success">Clear</button>
+          </a><br>
+          <a href="/gcancel">
+            <button id="gcancel" class="btn btn-outline-success">Gcancel</button>
+          </a><br>
+          <a href="/gcheck">
+            <button id="gcheck" class="btn btn-outline-success">Gcheck</button>
+          </a><br>
+          <a href="/gend">
+            <button id="gend" class="btn btn-outline-success">Gend</button>
+          </a><br>
+          <a href="/giveaway">
+            <button id="giveaway" class="btn btn-outline-success">Giveaway</button>
+          </a><br>
+          <a href="/greroll">
+            <button id="greroll" class="btn btn-outline-success">Greroll</button>
+          </a><br>
+          <a href="/uncitizen">
+            <button id="uncitizen" class="btn btn-outline-success">Uncitizen</button>
+          </a><br>
+        </div>
+      </center>
+    </div>
+  </body>
+</html>
