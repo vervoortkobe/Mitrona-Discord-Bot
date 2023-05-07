@@ -61,7 +61,7 @@ module.exports.run = async (req, res, client, db) => {
 		    req.session.destroy();
         return res.send(
           head + 
-          loggedin_user
+          logged_in
           .toString()
           .replaceAll("${req.hostname}", req.hostname)
           .replaceAll("${req.clientIp}", req.clientIp)
