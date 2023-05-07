@@ -48,7 +48,6 @@ module.exports.run = async (client, db) => {
     setInterval(async () => {
       let giveaways = await db.collection("giveaways");
       giveaways = await giveaways.find().toArray();
-      console.log(giveaways);
 
       giveaways.forEach(ga => {
         if(ga.busy === true) {
