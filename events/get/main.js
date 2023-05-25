@@ -13,10 +13,9 @@ module.exports.run = async (req, res, client, cmdpath, db) => {
   if(req.session.loggedin) {
 
     //UNDEFINED USER
-    if(req.session.username === "undefined#undefined" || req.session.username === "undefined") {
-      
+    if(req.session.username === "undefined#undefined" || 
+    req.session.username === "undefined") {
       return res.redirect("/");
-      
     } else {
     
       var userid = req.session.userid;
@@ -147,14 +146,7 @@ module.exports.run = async (req, res, client, cmdpath, db) => {
           .replaceAll("${allowedroles}", allowedroles)
         );
   
-      } else {
-        //USER
-        return res.redirect("/");
-      }
+      } else return res.redirect("/"); //USER
     }
-
-  } else {
-    //LOGGED OUT
-    return res.redirect("/");
-  }
+  } else return res.redirect("/"); //LOGGED OUT
 }
