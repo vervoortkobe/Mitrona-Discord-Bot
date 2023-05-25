@@ -86,7 +86,11 @@ module.exports.run = async (req, res, client, cmdpath, db) => {
 
         let roles = "";
         const mitronaserver = client.guilds.cache.get(process.env.MITRONA_SERVERID);
-        if(mitronaserver.members.cache.find(m => m.id === userid).permissions.has(Discord.PermissionsBitField.Flags.ManageRoles) && mitronaserver.members.me.permissions.has(Discord.PermissionsBitField.Flags.ManageRoles)) {
+        if(mitronaserver.members.cache.find(m => m.id === userid).permissions.has(Discord.PermissionsBitField.Flags.ManageRoles) && 
+        mitronaserver.members.me.permissions.has(Discord.PermissionsBitField.Flags.ManageRoles) || 
+        perms.admin[0] === userid && 
+        mitronaserver.members.me.permissions.has(Discord.PermissionsBitField.Flags.ManageRoles)
+        ) {
           //ROLE POSITIONS LIKE IN SERVER'S ROLE LIST
           let roleposarr = [];
           for (let i = 0; i < mitronaserver.roles.cache.size; i++) {
@@ -107,7 +111,11 @@ module.exports.run = async (req, res, client, cmdpath, db) => {
         if(!roles || roles.length === 0) roles = "No roles found in this server!";
 
         let allowedroles = "";
-        if(mitronaserver.members.cache.find(m => m.id === userid).permissions.has(Discord.PermissionsBitField.Flags.ManageRoles) && mitronaserver.members.me.permissions.has(Discord.PermissionsBitField.Flags.ManageRoles)) {
+        if(mitronaserver.members.cache.find(m => m.id === userid).permissions.has(Discord.PermissionsBitField.Flags.ManageRoles) && 
+        mitronaserver.members.me.permissions.has(Discord.PermissionsBitField.Flags.ManageRoles) || 
+        perms.admin[0] === userid && 
+        mitronaserver.members.me.permissions.has(Discord.PermissionsBitField.Flags.ManageRoles)
+        ) {
           allowedroles = cmdperms.map(rid => {
             const findrole = mitronaserver.roles.cache.find(r => r.id === rid);
             if(findrole) {
