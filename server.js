@@ -132,7 +132,7 @@ function server(client, db) {
 
   app.post("/logout", (req, res) => {
     let eventfile = require("./events/post/logout.js");
-    if(eventfile) eventfile.run(req, res);
+    if(eventfile) eventfile.run(req, res, db);
   });
 
   //SLASH COMMANDS
